@@ -1,0 +1,187 @@
+name: 优化版Sync GitHub Repos to Subfolders and unzip to default branch
+ 
+on: 
+  schedule: 
+    - cron: '0 0 * * *' 
+  workflow_dispatch: 
+ 
+env: 
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true 
+ 
+concurrency: 
+  group: sync_job_lock 
+  cancel-in-progress: true 
+ 
+jobs: 
+  sync_and_unzip: 
+    runs-on: ubuntu-latest 
+ 
+    steps: 
+      - name: Checkout default branch 
+        uses: actions/checkout@v4 
+ 
+      - name: Set up Git config 
+        run: | 
+          git config user.name "github-actions[bot]" 
+          git config user.email "github-actions[bot]@users.noreply.github.com" 
+ 
+      - name: Reset repo 
+        run: | 
+          set -e 
+          DEFAULT_BRANCH=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p') 
+          echo "DEFAULT_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV 
+          git fetch origin $DEFAULT_BRANCH 
+          git checkout $DEFAULT_BRANCH || git checkout -b $DEFAULT_BRANCH 
+          git reset --hard origin/$DEFAULT_BRANCH 
+          git clean -fdx 
+ 
+      # ==================== 修改点 1：Fetch subprojects（安全版） ====================
+      - name: Fetch subprojects（安全版：先克隆成功再替换）
+        run: | 
+          echo "==== 开始同步仓库 ====" 
+          declare -A repos=( 
+             [dr]="https://github.com/jak0099/dr.git" 
+            [dr]="https://github.com/jak0099/dr.git" 
+            [tvbox]="https://github.com/cluntop/tvbox.git" 
+            [T4]="https://github.com/4TVBox/TVBox.git" 
+            [wzxxcz]="https://github.com/wzxxcz/wzxxcz.git" 
+            [Tomorrow]="https://github.com/tushen6/Tomorrow.git" 
+            [aa999ok]="https://github.com/AA999OK/TVBOX.git" 
+            [sky4726]="https://github.com/sky4726/sk.git" 
+            [ediart]="https://github.com/ediart/tvbox.git" 
+            [lemonguo121]="https://github.com/lemonguo121/BoxRes.git" 
+            [leexuben]="https://github.com/leexuben/TVBOX-merge.git" 
+            [yjl]="https://github.com/YJL20190405/TVBOX.git" 
+            [zheng1976]="https://github.com/zheng197600/tvbox.git" 
+            [FGBLH]="https://github.com/FGBLH/FG.git" 
+            [yihad168]="https://github.com/yihad168/tv.git" 
+               [李在付]="https://github.com/lizaifu2026/df.git" 
+            [cpu_iy3]="https://github.com/IY-CPU/IY.git" 
+            [cpu_iy]="https://gitee.com/cpu-iy/iy.git" 
+            [cpu_iy2]="https://github.com/yvor-liu/tvbox.git" 
+            [reF1nd]="https://github.com/syccccc2333-oss/singbox_config.git" 
+            [bd]="https://github.com/xiaohaozifeifeifei/bd.git" 
+            [catvod]="https://github.com/Darklessing/catvod.git" 
+            [jaychouqq]="https://github.com/wliqi495-create/jaychouqq.git" 
+             [tbapi2]="https://github.com/ls125781003/tbapi2.git" 
+              [tbapi1]="https://github.com/ls125781003/tbapi1.git" 
+               [jiemi]="https://github.com/woshishiq1/jiemi.git"
+                [BINGO-TV]="https://github.com/leexuben/BINGO-TV.git"
+                [ljlfct01.github.io.git]="https://github.com/ljlfct01/ljlfct01.github.io.git"
+                [666tv_v3]="https://github.com/666tv/v3.git"
+                [cluntop_tvbox]="https://github.com/cluntop/tvbox.git"
+                [yoursmile66_TVBox]="https://github.com/yoursmile66/TVBox.git"
+                [Ye-11X115490_PsyDuck4k]="https://gitee.com/Ye-11X115490/PsyDuck.git"
+                [tianjitop/llllo4k]="https://github.com/tianjitop/llllo.git"
+                [潇洒]="https://github.com/PizazzGY/NewTVBox.git"
+                [qist_tvbox工具]="https://github.com/qist/tvbox.git"
+                
+                 
+               [TB18]="https://github.com/LIUJEI/TB.git" 
+               [tvbox-FL18]="https://github.com/aa123jg/tvbox-FL.git"
+               [pgfh18]="https://github.com/lang999/pgfh.git"
+               [yinshiyuan18]="https://github.com/wanganni/yinshiyuan.git"
+               [yuanwangokkTV-BOX18]="https://github.com/yuanwangokk-1/TV-BOX.git"
+               [zheng19760018]="https://github.com/zheng197600/tvbox.git"
+               [sese-18]="https://github.com/zhangfdzr/sese-.git"
+                [recha18]="https://gitlab.com/tenrecha/recha.git"
+               [TVBOX-merge18]="https://github.com/leexuben/TVBOX-merge.git"
+               [ycc1195835265-18]="https://github.com/ycc1195835265/18.git"
+                [666tv_69-18]="https://github.com/666tv/69.git"   
+                 
+            # 可以继续添加其他仓库
+          ) 
+ 
+          for name in "${!repos[@]}"; do 
+            echo "→ 同步 $name" 
+            
+            # [修改] 先尝试克隆到临时目录，不删除原有文件夹
+            rm -rf "temp-$name"                    # 清理旧的临时目录
+            git clone --depth 1 "${repos[$name]}" "temp-$name" || { 
+              echo "❌ 克隆失败 $name，跳过（保留原有文件夹）" 
+              rm -rf "temp-$name"                 # [新增] 清理克隆失败的残留
+              continue 
+            } 
+ 
+            # [修改] 克隆成功后，再删除旧目录并替换
+            rm -rf "$name" 
+            mkdir -p "$name" 
+            rsync -a --exclude='.git' "temp-$name"/ "$name"/ 
+            rm -rf "temp-$name" 
+          done 
+ 
+      - name: Sync DustinWin _posts 
+        run: | 
+          rm -rf temp-dustinwin 
+          git clone --depth 1 https://github.com/DustinWin/dustinwin.github.io.git temp-dustinwin || exit 0 
+          mkdir -p _posts 
+          rsync -a --exclude='.git' temp-dustinwin/_posts/ _posts/ 
+          rm -rf temp-dustinwin 
+ 
+      - name: Fix timestamps（安全版） 
+        run: | 
+          dirs="dr tvbox T4 wzxxcz Tomorrow aa999ok sky4726 ediart lemonguo121 leexuben yjl zheng1976 FGBLH yihad168 cpu_iy cpu_iy2 reF1nd bd catvod jaychouqq _posts" 
+ 
+          for d in $dirs; do 
+            [ -d "$d" ] || continue 
+            find "$d" -type f -print0 
+          done | xargs -0 touch 
+ 
+      # ==================== 修改点 2：Download NewTVBox（安全版） ====================
+      - name: Download NewTVBox（安全版：先下载验证成功再替换）
+        run: | 
+          # [修改] 先下载到临时文件，不删除现有目录
+          curl -L -o github.zip "https://github.com/PizazzGY/NewTVBox/archive/refs/heads/main.zip" || { 
+            echo "❌ 下载 NewTVBox 失败，保留原有 gitee-source（如果有）" 
+            rm -f github.zip 
+            exit 0 
+          } 
+ 
+          # [修改] 验证 ZIP 有效性
+          if unzip -t github.zip >/dev/null 2>&1; then 
+            # [修改] 验证通过后，再删除旧目录并替换
+            rm -rf gitee-source 
+            mkdir -p gitee-source 
+            unzip -q github.zip 
+            rsync -a --exclude='.git' NewTVBox-main/ gitee-source/ 
+            rm -rf NewTVBox-main github.zip 
+          else 
+            echo "⚠️ 下载的 ZIP 文件损坏，保留原有 gitee-source" 
+            rm -f github.zip 
+          fi 
+ 
+      - name: Commit changes 
+        run: | 
+          git add . 
+          git commit -m "Sync all projects" || echo "No changes" 
+          git push origin $DEFAULT_BRANCH 
+ 
+      # 已删除 Sync to master 步骤（不再需要）
+ 
+      - name: Unzip ZIP 
+        run: | 
+          if [ -d "gitee-source" ]; then 
+            cd gitee-source 
+            for file in *.zip; do 
+              [ -e "$file" ] || continue 
+              unzip -o "$file" 
+            done 
+            cd .. 
+          fi 
+ 
+      - name: Commit unzip 
+        run: | 
+          git add . 
+          git commit -m "Unzip ZIP files" || echo "No changes" 
+          git push origin $DEFAULT_BRANCH --force 
+ 
+  cleanup_runs: 
+    runs-on: ubuntu-latest 
+    needs: sync_and_unzip 
+    steps: 
+      - name: Delete old runs 
+        uses: Mattraks/delete-workflow-runs@v2 
+        with: 
+          token: ${{ secrets.GITHUB_TOKEN }} 
+          retain_days: 3 
+          keep_minimum_runs: 10
