@@ -1,0 +1,8 @@
+{
+  "host": "http://8.148.255.91:55855/api.php/app/",
+  "mykey": "",
+  "player": "",
+  "linePrefix": "【天神IY】",
+  "contentPrefix": "【天神IY】提醒您请勿相信影片中的广告，以免上当受骗！",
+  "lineReplace": "移动线路_电信线路"
+}

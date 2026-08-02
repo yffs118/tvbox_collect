@@ -1,0 +1,1032 @@
+//大部分资源来源于网络和各大佬整合，在此致敬！
+//软件接口完全免费，仅供学习交流使用，如有侵权请联系删除！
+
+{
+"spider": "./jar/66tv240812.jar;md5;20d2ee18388ea23295700d9cfb6648c8",
+//"spider": "./jar/lltv.jar;md5;65b3e76dcc7a09f48b8c6e7ca74a01a5",
+"wallpaper": "./by/66tv.png",
+"warningText": "勿信视频中任何广告！专人维护•定期更新！",
+"logo": "https://gitee.com/lltv/by/raw/main/logo.png",
+
+"sites": [
+
+//教育~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    {
+      "key": "lltv_哔哩学堂",
+      "name": "哔哩┃学堂",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "./jiaoyu/哔哩学堂.json"
+    },
+    {
+      "key": "lltv_知识",
+      "name": "知识┃学堂",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 0,
+      "ext": "./jiaoyu/知识.json"
+    },
+    {
+      "key": "lltv_兴趣",
+      "name": "兴趣┃培养",
+      "type": 3,
+      "api": "csp_Bili",
+      "style": {
+      "type": "rect",
+      "ratio": 1.597
+      },
+      "searchable": 0,
+      "quickSearch": 0,
+      "changeable": 0,
+      "ext": "./jiaoyu/兴趣课堂.json"
+    },
+    {
+      "key": "lltv_益智",
+      "name": "益智┃动画",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/益智动画.json"
+    },
+    {
+      "key": "lltv_急救",
+      "name": "急救┃知识 ",
+      "type": 3,
+      "api": "csp_FirstAid",
+      "jar": "./jar/spider.jar",
+      "searchable": 0,
+      "quickSearch": 0,
+      "changeable": 0,
+      "style": {
+        "type": "rect",
+        "ratio": 3.8
+      }
+    },
+    {
+      "key": "lltv_养生堂",
+      "name": "养生┃知识",
+      "type": 3,
+      "api": "csp_XBPQ",
+      "ext": "./jiaoyu/养生堂.json",
+      "style": {
+          "type": "rect",
+          "ratio": 1.597
+        }
+    },
+    {
+      "key": "lltv_央视经典-荷城",
+      "name": "央视┃经典",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/央视经典.json"
+    },
+    {
+      "key": "lltv_幼小衔接",
+      "name": "幼小┃衔接",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/幼小衔接.json"
+    },
+    {
+      "key": "lltv_幼儿启蒙",
+      "name": "幼儿┃启蒙",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/幼儿启蒙.json"
+    },
+    {
+      "key": "lltv_儿童",
+      "name": "少儿┃教育",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 0,
+      "ext": "./jiaoyu/少儿.json"
+    },
+    {
+      "key": "lltv_小学",
+      "name": "小学┃课堂",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 0,
+      "ext": "./jiaoyu/小学.json"
+    },
+    {
+      "key": "lltv_小学语文",
+      "name": "小学┃语文",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/小学语文.json"
+    },
+    {
+      "key": "lltv_小学数学",
+      "name": "小学┃数学",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/小学数学.json"
+    },
+    {
+      "key": "lltv_小学英语",
+      "name": "小学┃英语",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/小学英语.json"
+    },
+    {
+      "key": "lltv_初中",
+      "name": "初中┃课堂",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 0,
+      "ext": "./jiaoyu/初中.json"
+    },
+    {
+      "key": "lltv_高中",
+      "name": "高中┃课堂",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 0,
+      "ext": "./jiaoyu/高中.json"
+    },
+    {
+      "key": "lltv_高考",
+      "name": "高考┃课堂",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "./jiaoyu/哔哩哔哩高考.json"
+    },
+    {
+      "key": "lltv_编程",
+      "name": "儿童┃编程",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/儿童编程.json"
+    },
+    {
+      "key": "lltv_口才",
+      "name": "儿童┃口才",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/儿童口才.json"
+    },
+    {
+      "key": "lltv_拼音",
+      "name": "儿童┃拼音",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/儿童拼音.json"
+    },
+    {
+      "key": "lltv_思维",
+      "name": "儿童┃思维",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/儿童思维.json"
+    },
+    {
+      "key": "lltv_识字",
+      "name": "儿童┃识字",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/儿童识字.json"
+    },
+    {
+      "key": "lltv_硬笔",
+      "name": "儿童┃书法",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/儿童书法.json"
+    },
+    {
+      "key": "lltv_武术",
+      "name": "儿童┃武术",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/儿童武术.json"
+    },
+    {
+      "key": "lltv_英语",
+      "name": "儿童┃英语",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/儿童英语.json"
+    },
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    {
+      "key": "lltv_吾爱学堂",
+      "name": "吾爱┃学堂",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "./jiaoyu/吾爱学堂0804.m3u"
+    },
+    {
+      "key": "lltv_外语",
+      "name": "吾爱┃外语",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/666tv/66/main/jiaoyu/吾爱外语.json"
+    },
+    {
+      "key": "lltv_搭配",
+      "name": "吾爱┃搭配",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/666tv/66/main/jiaoyu/吾爱搭配.json"
+    },
+    {
+      "key": "lltv_搭讪",
+      "name": "吾爱┃搭讪",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/666tv/66/main/jiaoyu/吾爱搭讪.json"
+    },
+    {
+      "key": "lltv_户外",
+      "name": "吾爱┃户外",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "./jiaoyu/吾爱户外.json"
+    },
+    {
+      "key": "lltv_美食",
+      "name": "吾爱┃美食",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/666tv/66/main/jiaoyu/吾爱美食0804.m3u"
+    },
+    {
+      "key": "lltv_棋牌",
+      "name": "吾爱┃棋牌",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/666tv/66/main/jiaoyu/吾爱棋牌0806.m3u"
+    },
+    {
+      "key": "lltv_体育",
+      "name": "吾爱┃体育",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "./jiaoyu/吾爱体育0811.m3u"
+    },
+    {
+      "key": "lltv_舞蹈",
+      "name": "吾爱┃舞蹈",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/666tv/66/main/jiaoyu/吾爱舞蹈.json"
+    },
+    {
+      "key": "lltv_戏曲",
+      "name": "吾爱┃戏曲",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "./jiaoyu/戏曲0723.json"
+    },
+    {
+      "key": "lltv_乐器",
+      "name": "吾爱┃乐器",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "./jiaoyu/吾爱乐器.json"
+    },
+    {
+      "key": "lltv_足球",
+      "name": "吾爱┃足球",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "./jiaoyu/吾爱足球.json"
+    },
+    {
+      "key": "lltv_PS",
+      "name": "吾爱┃PS",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/666tv/66/main/jiaoyu/吾爱PS.json"
+    },
+    {
+      "key": "lltv_UP",
+      "name": "吾爱┃UP",
+      "type": 3,
+      "api": "csp_Bili",
+      "style": {
+        "type": "rect",
+        "ratio": 1.597
+      },
+      "searchable": 0,
+      "quickSearch": 0,
+      "changeable": 0,
+      "ext": "./jiaoyu/吾爱UP主合集.json"
+    },
+    {
+      "key": "lltv_EXCEL",
+      "name": "吾爱┃Excel",
+      "type": 3,
+      "api": "csp_Bili",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "./jiaoyu/Excel教程.json"
+    },
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//以下需适配  HeChengChaXiu.jar
+    {
+      "key": "lltv_小灯塔百科",
+      "name": "小灯塔┃百科",
+      "type": 3,
+      "api": "csp_Bili",
+      "jar": "./jar/HeChengChaXiu.jar",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/小灯塔百科.json"
+    },
+    {
+      "key": "lltv_小灯塔地理",
+      "name": "小灯塔┃地理",
+      "type": 3,
+      "api": "csp_Bili",
+      "jar": "./jar/HeChengChaXiu.jar",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/小灯塔地理.json"
+    },
+    {
+      "key": "lltv_小灯塔国学",
+      "name": "小灯塔┃国学",
+      "type": 3,
+      "api": "csp_Bili",
+      "jar": "./jar/HeChengChaXiu.jar",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/小灯塔国学.json"
+    },
+    {
+      "key": "lltv_小灯塔科学",
+      "name": "小灯塔┃科学",
+      "type": 3,
+      "api": "csp_Bili",
+      "jar": "./jar/HeChengChaXiu.jar",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/小灯塔科学.json"
+    },
+    {
+      "key": "lltv_小灯塔启蒙",
+      "name": "小灯塔┃启蒙",
+      "type": 3,
+      "api": "csp_Bili",
+      "jar": "./jar/HeChengChaXiu.jar",
+      "searchable": 0,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./jiaoyu/小灯塔启蒙.json"
+    },
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    {
+      "key": "lltv_本地",
+      "name": "📛收集整理不易📛",
+      "type": 3,
+      "api": "csp_LocalFile",
+      "searchable": 0,
+      "quickSearch": 0
+    },
+    {
+      "key": "lltv1",
+      "name": "📛请多多支持📛",
+      "type": 3,
+      "api": "",
+      "searchable": 0,
+      "quickSearch": 0
+    },
+    {
+      "key": "lltv2",
+      "name": "📛高端精品尽在📛",
+      "type": 3,
+      "api": "",
+      "searchable": 0,
+      "quickSearch": 0
+    },
+    {
+      "key": "lltv3",
+      "name": "📛⑥⑥宝藏团📛",
+      "type": 3,
+      "api": "",
+      "searchable": 0,
+      "quickSearch": 0
+    }
+],
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+//解析~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"parses": [
+    {
+      "name": "聚合",
+      "type": 3,
+      "url": "Demo"
+    },
+    {
+      "name": "Json",
+      "type": 2,
+      "url": "Sequence"
+    },
+    {
+      "name": "LLTV_1",
+      "type": "1",
+      "url": "https://mfjx.iwsyy.xyz/?url=",
+      "ext": {
+          "flag": [
+              "qq",
+              "腾讯",
+              "qiyi",
+              "爱奇艺",
+              "奇艺",
+              "youku",
+              "优酷",
+              "sohu",
+              "搜狐",
+              "letv",
+              "乐视",
+              "mgtv",
+              "芒果",
+              "tnmb",
+              "seven",
+              "bilibili",
+              "1905",
+              "NetFilx"
+          ],
+          "header": {
+              "User-Agent": "okhttp/4.9.1"
+          }
+       }
+    },
+    {
+      "name": "LLTV_2",
+      "type": 1,
+      "url": "https://zy.qiaoji8.com/xiafan.php?url=",
+      "ext": {
+        "flag": [
+            "QD4K",
+            "iyf",
+            "duanju",
+            "gzcj",
+            "GTV",
+            "GZYS",
+            "weggz",
+            "Ace"
+        ],
+        "header": {
+            "User-Agent": "okhttp/4.9.1"
+        }
+      }
+    },
+    {
+      "name": "LLTV_3",
+      "type": 0,
+      "url": "https://jx.xmflv.com/?url=",
+      "ext": {
+        "header": {
+          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57"
+        }
+      }
+    },
+    {
+      "name": "LLTV_4",
+      "type": 0,
+      "url": "https://bd.jx.cn/?url=",
+      "ext": {
+        "header": {
+          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57"
+        }
+      }
+    }
+],
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+//旗帜~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"flags": [
+    "tudou",
+    "土豆",
+    "pptv",
+    "PPTV",
+    "wasu",
+    "qq",
+    "QQ",
+    "腾讯",
+    "qiyi",
+    "奇艺",
+    "iqiyi",
+    "爱奇艺",
+    "youku",
+    "优酷",
+    "tucheng",
+    "sohu",
+    "搜狐",
+    "letv",
+    "乐视",
+    "mgtv",
+    "芒果",
+    "bili",
+    "哔哩",
+    "bilibili",
+    "哔哩哔哩",
+    "xigua",
+    "西瓜",
+    "xmm",
+    "1905",
+    "m1905",
+    "imgo",
+    "funshion",
+    "dbm3u8",
+    "cool",
+    "tnmb",
+    "seven",
+    "yzm",
+    "ppayun",
+    "haiwaikan",
+    "renrenmi",
+    "aliyun",
+    "RJuMao",
+    "bilibili",
+    "xinvip",
+    "XAL",
+    "qiqi",
+    "XALS",
+    "SPA",
+    "ltnb",
+    "rx",
+    "SLYS4k",
+    "BYGA",
+    "luanzi",
+    "dxzy",
+    "QEYSS",
+    "ruyi1080",
+    "ruyib1080",
+    "YuMi-vip"
+    ],
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+//解码~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"ijk": [
+    {
+      "group": "软解码",
+      "options": [
+        {
+          "category": 4,
+          "name": "opensles",
+          "value": "0"
+        },
+        {
+          "category": 4,
+          "name": "overlay-format",
+          "value": "842225234"
+        },
+        {
+          "category": 4,
+          "name": "framedrop",
+          "value": "1"
+        },
+        {
+          "category": 4,
+          "name": "soundtouch",
+          "value": "1"
+        },
+        {
+          "category": 4,
+          "name": "start-on-prepared",
+          "value": "1"
+        },
+        {
+          "category": 1,
+          "name": "http-detect-range-support",
+          "value": "0"
+        },
+        {
+          "category": 1,
+          "name": "fflags",
+          "value": "fastseek"
+        },
+        {
+          "category": 2,
+          "name": "skip_loop_filter",
+          "value": "48"
+        },
+        {
+          "category": 4,
+          "name": "reconnect",
+          "value": "1"
+        },
+        {
+          "category": 4,
+          "name": "enable-accurate-seek",
+          "value": "0"
+        },
+        {
+          "category": 4,
+          "name": "mediacodec",
+          "value": "0"
+        },
+        {
+          "category": 4,
+          "name": "mediacodec-auto-rotate",
+          "value": "0"
+        },
+        {
+          "category": 4,
+          "name": "mediacodec-handle-resolution-change",
+          "value": "0"
+        },
+        {
+          "category": 4,
+          "name": "mediacodec-hevc",
+          "value": "0"
+        },
+        {
+          "category": 1,
+          "name": "dns_cache_timeout",
+          "value": "600000000"
+        }
+      ]
+    },
+    {
+      "group": "硬解码",
+      "options": [
+        {
+          "category": 4,
+          "name": "opensles",
+          "value": "0"
+        },
+        {
+          "category": 4,
+          "name": "overlay-format",
+          "value": "842225234"
+        },
+        {
+          "category": 4,
+          "name": "framedrop",
+          "value": "1"
+        },
+        {
+          "category": 4,
+          "name": "soundtouch",
+          "value": "1"
+        },
+        {
+          "category": 4,
+          "name": "start-on-prepared",
+          "value": "1"
+        },
+        {
+          "category": 1,
+          "name": "http-detect-range-support",
+          "value": "0"
+        },
+        {
+          "category": 1,
+          "name": "fflags",
+          "value": "fastseek"
+        },
+        {
+          "category": 2,
+          "name": "skip_loop_filter",
+          "value": "48"
+        },
+        {
+          "category": 4,
+          "name": "reconnect",
+          "value": "1"
+        },
+        {
+          "category": 4,
+          "name": "enable-accurate-seek",
+          "value": "0"
+        },
+        {
+          "category": 4,
+          "name": "mediacodec",
+          "value": "1"
+        },
+        {
+          "category": 4,
+          "name": "mediacodec-auto-rotate",
+          "value": "1"
+        },
+        {
+          "category": 4,
+          "name": "mediacodec-handle-resolution-change",
+          "value": "1"
+        },
+        {
+          "category": 4,
+          "name": "mediacodec-hevc",
+          "value": "1"
+        },
+        {
+          "category": 1,
+          "name": "dns_cache_timeout",
+          "value": "600000000"
+        }
+      ]
+    }
+],
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+//规则~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"rules": [
+        {
+            "name": "农民",
+            "hosts": [
+                "toutiaovod.com"
+            ],
+            "regex": [
+                "video/tos/cn"
+            ]
+        },
+        {
+            "name": "火山",
+            "hosts": [
+                "huoshan.com"
+            ],
+            "regex": [
+                "item_id="
+            ]
+        },
+        {
+            "name": "抖音",
+            "hosts": [
+                "douyin.com"
+            ],
+            "regex": [
+                "is_play_url="
+            ]
+        },
+        {
+            "name": "饭团点击",
+            "hosts": [
+                "dadagui",
+                "freeok",
+                "dadagui"
+            ],
+            "script": [
+                "document.querySelector(\"#playleft iframe\").contentWindow.document.querySelector(\"#start\").click();"
+            ]
+        },
+        {
+            "name": "毛驴点击",
+            "hosts": [
+                "www.maolvys.com"
+            ],
+            "script": [
+                "document.getElementsByClassName('swal-button swal-button--confirm')[0].click()"
+            ]
+        },
+        {
+            "name": "量子非凡广告",
+            "hosts": [
+                "lz",
+                "vip.lz",
+                "v.cdnlz",
+                "hd.lz",
+                "ffzy",
+                "vip.ffzy",
+                "hd.ffzy"
+            ],
+            "regex": [
+                "#EXT-X-DISCONTINUITY\\r*\\n*#EXTINF:6.666667,[\\s\\S]*?#EXT-X-DISCONTINUITY",
+                "#EXT-X-DISCONTINUITY\\r*\\n*#EXTINF:6.600000,[\\s\\S]*?#EXT-X-DISCONTINUITY"
+            ]
+        },
+        {
+            "name": "快看广告",
+            "hosts": [
+                "kuaikan",
+                "vip.kuaikan"
+            ],
+            "regex": [
+                "15.32",
+                "15.231",
+                "18.066"
+            ]
+        },
+        {
+            "name": "360广告",
+            "hosts": [
+                "lyhuicheng"
+            ],
+            "regex": [
+                "#EXTINF.*?\\s+.*?hrz8QcR9.*?\\.ts\\s+",
+                "#EXT-X-KEY:METHOD=NONE[\\s\\S]*?#EXT-X-DISCONTINUITY"
+            ]
+        },
+        {
+            "name": "开源棋牌",
+            "hosts": [
+                "askzycdn",
+                "jkunbf",
+                "bfikuncdn",
+                "bfaskcdn"
+            ],
+            "regex": [
+                "#EXT-X-KEY:METHOD=NONE\\r*\\n*#EXTINF:5,[\\s\\S]*?#EXT-X-DISCONTINUITY",
+                "#EXT-X-KEY:METHOD=AES-128,URI=\"[^\"]+\"\\r*\\n*#EXTINF:3.333,[\\s\\S]*?#EXT-X-DISCONTINUITY"
+            ]
+        }
+    ],
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"doh": [
+        {
+            "name": "Google",
+            "url": "https://dns.google/dns-query",
+            "ips": [
+                "8.8.4.4",
+                "8.8.8.8"
+            ]
+        },
+        {
+            "name": "Cloudflare",
+            "url": "https://cloudflare-dns.com/dns-query",
+            "ips": [
+                "1.1.1.1",
+                "1.0.0.1",
+                "2606:4700:4700::1111",
+                "2606:4700:4700::1001"
+            ]
+        },
+        {
+            "name": "AdGuard",
+            "url": "https://dns.adguard.com/dns-query",
+            "ips": [
+                "94.140.14.140",
+                "94.140.14.141"
+            ]
+        },
+        {
+            "name": "DNSWatch",
+            "url": "https://resolver2.dns.watch/dns-query",
+            "ips": [
+                "84.200.69.80",
+                "84.200.70.40"
+            ]
+        },
+        {
+            "name": "Quad9",
+            "url": "https://dns.quad9.net/dns-quer",
+            "ips": [
+                "9.9.9.9",
+                "149.112.112.112"
+            ]
+        }
+    ],
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"hosts": [
+        "cache.ott.*.itv.cmvideo.cn=base-v4-free-mghy.e.cdn.chinamobile.com",
+        "cache.ott.ystenlive.itv.cmvideo.cn=base-v4-free-mghy.e.cdn.chinamobile.com",
+        "cache.ott.bestlive.itv.cmvideo.cn=base-v4-free-mghy.e.cdn.chinamobile.com",
+        "cache.ott.wasulive.itv.cmvideo.cn=base-v4-free-mghy.e.cdn.chinamobile.com",
+        "cache.ott.fifalive.itv.cmvideo.cn=base-v4-free-mghy.e.cdn.chinamobile.com",
+        "cache.ott.hnbblive.itv.cmvideo.cn=base-v4-free-mghy.e.cdn.chinamobile.com"
+],
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+//直播~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"lives": [
+    {
+      "name": "IPTV",
+      "type": 0,
+      "url": "https://gitee.com/mytv-android/iptv-api/raw/master/output/result.m3u",
+      "epg": "http://cdn.1678520.xyz/epg/?ch={name}&date={date}",
+      "logo": "https://live.fanmingming.cn/tv/{name}.png",
+      "timeout": 10
+    }
+],
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+//广告~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"ads": [
+        "static-mozai.4gtv.tv"
+    ]
+}

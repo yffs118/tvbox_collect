@@ -1,0 +1,39 @@
+name: Fetch_TVBox_Configs
+
+on:
+  workflow_dispatch:  # 手动触发
+  schedule:
+    - cron: '0 2 * * *'  # 每天 UTC 02:00 自动运行（可选，可删除）
+
+jobs:
+  fetch-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码（带完整 Git 历史，用于提交）
+        uses: actions/checkout@v3
+        with:
+          ref: main  # 或 merge，根据您的分支
+          token: ${{ secrets.MY_GH_TOKEN }}
+          fetch-depth: 0
+
+      - name: 设置 Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: 安装依赖
+        run: |
+          pip install requests
+
+      # 🔥 新增：配置 Git 用户信息
+      - name: 配置 Git 用户名和邮箱
+        run: |
+          git config --global user.email "745425103@qq.com"  # 替换为真实邮箱
+          git config --global user.name "leexuben"    # 替换为真实用户名
+
+      - name: 运行脚本，生成并自动提交 tvbox_raw_sources.txt
+        env:
+          MY_GH_TOKEN: ${{ secrets.MY_GH_TOKEN }}
+        run: |
+          python merge/fetch_tvbox_raw_urls.py

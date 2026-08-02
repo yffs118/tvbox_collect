@@ -1,0 +1,8 @@
+{
+                        "请求头": "User-Agent$MOBILE_UA",
+                        "编码": "UTF-8",
+                        "图片": "data-original=\"&&\"",
+                        "免嗅": 0,
+                        "分类": "电影$dianying#连续剧$lianxuju#动漫$dongman#综艺$zongyi",
+                        "分类url": "https://jianyunys.com/vodshow/{cateId}--------{catePg}---.html"
+                        }
