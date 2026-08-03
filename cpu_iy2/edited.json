@@ -44,10 +44,6 @@
       "delete": true
     },
     {
-      "key": "短木",
-      "delete": true
-    },
-    {
       "key": "爱听音乐",
       "delete": true
     },
@@ -89,10 +85,6 @@
     },
     {
       "key": "球通体育",
-      "delete": true
-    },
-    {
-      "key": "88看球",
       "name": "📺抖音｜点播",
       "type": 4,
       "api": "http://nm.4688888.xyz/vod/dy/dylive.php/provide/vod/",

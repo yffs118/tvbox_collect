@@ -1,6 +1,16 @@
 {
     "sites": [
         {
+            "key": "影探影视",
+            "name": "影探影视",
+            "type": 3,
+            "api": "https://gitee.com/Ye-11X115490/PsyDuck/raw/master/lib/影探影视.py",
+            "timeout": 10,
+            "searchable": 1,
+            "quickSearch": 0,
+            "changeable": 0
+        },
+        {
             "key": "枫叶",
             "name": "枫叶影院",
             "type": 3,
@@ -10,17 +20,6 @@
             "filterable": 1,
             "changeable": 1,
             "playable": 1
-        },
-        {
-            "key": "咕噜咕噜",
-            "name": "咕噜咕噜",
-            "type": 4,
-            "api": "http://bu.970088.xyz/video/咕噜99?platform=ysc&token=688988",
-            "searchable": 1,
-            "quickSearch": 1,
-            "filterable": 1,
-            "changeable": 0,
-            "ext": ""
         },
         {
             "key": "皮皮虾",
@@ -110,26 +109,6 @@
             "filterable": 1
         },
         {
-            "key": "快映",
-            "name": "快映视频",
-            "type": 3,
-            "changeable": 0,
-            "api": "https://gitee.com/Ye-11X115490/PsyDuck/raw/master/lib/AppFox.js",
-            "ext": {
-                "host": "https://www.kanzurm65ak.top/",
-                "ver": 3
-            }
-        },
-        {
-            "key": "wanou_sites",
-            "name": "网盘聚合",
-            "type": 4,
-            "api": "http://211.101.247.26:99/proxy.php?code=9999&target=5657e709a4c79e8b5e4b",
-            "searchable": 1,
-            "quickSearch": 1,
-            "filterable": 1
-        },
-        {
             "key": "mihdr",
             "name": "小米网盘",
             "type": 3,
@@ -179,6 +158,22 @@
         }
     ],
     "parses": [
+        {
+            "name": "影探解析",
+            "type": 1,
+            "url": "https://mk1080p.top/zzbh.php?url=",
+            "ext": {
+                "flag": [
+                    "联通云",
+                    "移动云",
+                    "腾讯",
+                    "爱奇艺",
+                    "优酷",
+                    "芒果",
+                    "BL路线"
+                ]
+            }
+        },
         {
             "name": "4K",
             "type": 1,
