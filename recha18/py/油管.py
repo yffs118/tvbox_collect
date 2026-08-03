@@ -19,6 +19,7 @@ YOUTUBE_CLASSES = [
     {'type_id': '最新新聞', 'type_name': '新聞'},
     {'type_id': '新聞直播', 'type_name': '新聞直播'},
     {'type_id': '漫劇', 'type_name': 'AI漫劇'}, 
+    {'type_id': '即時影像', 'type_name': '即時影像'},  # 新增
     {'type_id': '幼教', 'type_name': '幼兒教育'},    
     {'type_id': '音樂', 'type_name': '音樂'},
     {'type_id': '日漫', 'type_name': '日漫'},
@@ -64,6 +65,7 @@ CATEGORY_QUERY = {
     '音樂': '音樂',
     '新聞': '新聞 時事',
     '新聞直播': '新聞直播 直播',
+    '即時影像': '即時影像 LIVE Cam',  # 新增
     '網紅': '網紅 YouTuber 創作者',
     '靈異': '靈異 鬼故事 恐怖',
     '探險': '探險 冒險 野外 生存',
@@ -121,6 +123,46 @@ CATEGORY_FILTERS = {
             ('星河剧场', '星河剧场'),
         ]),
     ),
+    '即時影像': [  # 新增
+        _filter_group('region', '地區', [
+            ('台灣', '即時影像 台灣'),
+            ('日本', 'Japan Livecam'),
+            ('韓國', 'Korea Livecam'),
+            ('美國', 'USA Livecam'),
+            ('歐洲', 'Europe Livecam'),
+            ('亞洲', 'Asia Livecam'),
+        ]),
+        _filter_group('type', '類型', [
+            ('交通', '交通 道路 車流 即時影像'),
+            ('觀光', '觀光 景點 風景 即時影像'),
+            ('天氣', '天氣 氣象 雲圖 即時影像'),
+            ('街景', '街景 城市 街道 即時影像'),
+            ('自然', '自然 生態 動物 環境 即時影像'),
+            ('港口', '港口 船 海港 即時影像'),
+            ('機場', '機場 航班 飛機 即時影像'),
+            ('車站', '車站 火車 高鐵 即時影像'),
+            ('活動', '活動 展覽 現場 即時影像'),
+        ]),
+        _filter_group('source', '來源', [
+            ('YouTube直播', 'YouTube 直播'),
+            ('政府監視器', '政府 監視器 CCTV'),
+            ('即時新聞', '即時新聞 直播'),
+            ('交通局', '交通局 即時影像'),
+            ('觀光局', '觀光局 即時影像'),
+            ('4K', '4K 即時影像'),
+            ('8K', '8K 即時影像'),
+        ]),
+        _filter_group('channel', '熱門頻道', [
+            ('台灣即時影像', '台灣即時影像'),
+            ('Japan Live', 'Japan Live Camera'),
+            ('Korea Live', 'Korea Live Camera'),
+            ('Earth Cam', 'Earth Cam'),
+            ('Skyline Webcam', 'Skyline Webcam'),
+            ('Live Earth', 'Live Earth 360'),
+            ('World Live Cam', 'World Live Cam'),
+            ('即時影像監視器', '即時影像監視器'),
+        ])
+        ],    
 '日漫': _with_year(
     _filter_group('title', '熱門作品', [
         ('海賊王', 'onepiece ワンピース'),
@@ -1058,19 +1100,45 @@ class YouTubeLite:
     def _is_risky_best_video(self, item):
         codecs = (item.get('codecs') or '').lower()
         return 'av01' in codecs
-
     def choose_video_tracks(self, formats, quality=None):
         videos = [x for x in formats if x.get('vcodec') != 'none' and x.get('acodec') == 'none']
-        cap = 2160 if quality in ('best', '4k') else 1440 if quality == '2k' else 1080
-        videos = [x for x in videos if int(x.get('height') or 0) <= cap] or videos
+    
+        # 根據 quality 設定畫質過濾
+        if quality == '4k':
+            videos = [x for x in videos if int(x.get('height') or 0) >= 2160]
+        elif quality == '2k':
+            videos = [x for x in videos if 1440 <= int(x.get('height') or 0) < 2160]
+        elif quality == '1080p':
+            videos = [x for x in videos if 1000 <= int(x.get('height') or 0) < 1440]
+        elif quality == 'best':
+            # 選最高畫質，沒有上限
+            pass
+        else:
+            # 默認至少 1080p
+            videos = [x for x in videos if int(x.get('height') or 0) >= 1080]
+
+        if not videos:
+            # 如果沒有符合條件的，取所有視頻
+            videos = [x for x in formats if x.get('vcodec') != 'none' and x.get('acodec') == 'none']
+
+        # 按畫質從高到低排序
+        videos.sort(key=lambda x: int(x.get('height') or 0), reverse=True)
+
+        # 優先選擇 VP9，如果沒有則選擇 H264，最後才是 AV1
         vp9 = [x for x in videos if self._video_codec_priority(x) >= 3]
-        if vp9:
-            videos = vp9
-        sdr = [x for x in videos if not self._is_hdr_video(x)]
-        hdr = [x for x in videos if self._is_hdr_video(x)]
-        sort_key = lambda x: (int(x.get('height') or 0), int(x.get('bitrate') or 0))
-        sdr.sort(key=sort_key, reverse=True)
-        hdr.sort(key=sort_key, reverse=True)
+        h264 = [x for x in videos if self._video_codec_priority(x) == 2]
+        av1 = [x for x in videos if self._video_codec_priority(x) == 1]
+
+        # 選擇最高畫質的 VP9，如果沒有則選擇 H264
+        selected_videos = vp9 if vp9 else (h264 if h264 else videos)
+
+        # 按畫質排序
+        selected_videos.sort(key=lambda x: (int(x.get('height') or 0), int(x.get('bitrate') or 0)), reverse=True)
+
+        # 分離 SDR 和 HDR
+        sdr = [x for x in selected_videos if not self._is_hdr_video(x)]
+        hdr = [x for x in selected_videos if self._is_hdr_video(x)]
+
         tracks = []
         if sdr:
             item = sdr[0].copy()
@@ -1082,13 +1150,16 @@ class YouTubeLite:
             item['track_name'] = 'HDR'
             item['is_hdr'] = True
             tracks.append(item)
+    
         if not tracks:
+            # 如果還是沒有，取第一個可用的
             item = self.choose_playable(formats, quality)
             if item:
                 item = item.copy()
                 item['track_name'] = 'HDR' if self._is_hdr_video(item) else 'SDR'
                 item['is_hdr'] = self._is_hdr_video(item)
                 tracks.append(item)
+    
         debug_log('video tracks selected', [{'name': x.get('track_name'), 'itag': x.get('itag'), 'height': x.get('height'), 'codecs': x.get('codecs')} for x in tracks])
         return tracks
 
@@ -1627,26 +1698,43 @@ class Spider(Spider):
             video_id, quality = raw_pid.rsplit('@', 1)
         else:
             video_id, quality = raw_pid, '1080p'
+
+        # 支持更多畫質選項
         if quality not in ('best', 'hdr', '4k', '2k', '1080p'):
             quality = 'best'
+
         debug_log('playerContent', {'flag': flag, 'pid': pid, 'video_id': video_id, 'quality': quality})
+
         try:
             data = self.yt.extract(video_id)
-            all_tracks = self.yt.choose_video_tracks(data['formats'], 'best')
-            wanted_name = 'HDR' if quality == 'hdr' else 'SDR'
+
+            # 傳入正確的 quality 參數
+            all_tracks = self.yt.choose_video_tracks(data['formats'], quality)
+
+            # 如果請求 HDR 但沒有 HDR 軌道，使用 SDR
+            if quality == 'hdr':
+                wanted_name = 'HDR'
+            else:
+                wanted_name = 'SDR'
+
             video_tracks = [x for x in all_tracks if x.get('track_name') == wanted_name]
             if not video_tracks and all_tracks:
                 video_tracks = [all_tracks[0]]
+
             if video_tracks:
+                # 處理直播
                 hls_track = next((t for t in data['formats'] if t.get('itag') == 'hls'), None)
                 if data.get('is_live') and hls_track:
                     headers = self.header.copy()
                     headers.update(hls_track.get('headers') or {})
                     return {'parse': 0, 'jx': 0, 'url': hls_track['url'], 'header': headers, 'format': 'application/x-mpegURL'}
-                
+
+                # 獲取音頻
                 audio = self.yt.choose_audio(data['formats'])
                 debug_log('selected track', {'requested': wanted_name, 'track': {'name': video_tracks[0].get('track_name'), 'itag': video_tracks[0].get('itag'), 'height': video_tracks[0].get('height'), 'mime': video_tracks[0].get('mimeType')}, 'audio': audio.get('itag') if audio else None})
+
                 if audio:
+                    # 有音頻，使用 DASH 模式
                     cache_key = f'yt_{video_id}_{quality}'
                     self.setCache(cache_key, {
                         'video_tracks': video_tracks,
@@ -1658,11 +1746,15 @@ class Spider(Spider):
                         'expires': time.time() + 300,
                     })
                     return {'parse': 0, 'jx': 0, 'url': f'http://127.0.0.1:9978/proxy?do=py&type=mpd&vid={video_id}&quality={quality}', 'format': 'application/dash+xml'}
+            
+                # 沒有音頻，直接播放視頻
                 playable = video_tracks[0]
                 headers = self.header.copy()
                 headers.update(playable.get('headers') or {})
                 return {'parse': 0, 'jx': 0, 'url': playable['url'], 'header': headers}
+        
             raise Exception(f'沒有可直接播放的 {quality} 視頻流格式')
+
         except Exception as e:
             debug_log('playerContent error', repr(e))
             print(f'[YouTubeLite] 解析失敗: {e}')
@@ -1670,7 +1762,7 @@ class Spider(Spider):
             if self.proxy_str:
                 res['proxy'] = self.proxy_str
             return res
-
+    
     def localProxy(self, params):
         if params.get('do') != 'py':
             return None

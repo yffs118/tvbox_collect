@@ -2,7 +2,7 @@
 /*-----------------------JAR包接口&壁纸接口(可替换)-----------------------*/
   "warningText":"💕永久完全免费，切勿付费购买💕",  
   "wallpaper": "http://127.0.0.1:9978/proxy?do=wallpaper",
-  "spider": "https://testingcf.jsdelivr.net/gh/LIUJEI/TS@master/JAR/MH.jar",
+  "spider": "https://pan.szfx.top/down.php/160c67492b103594de3ddc27888e62ea.jar",
   "logo": "http://127.0.0.1:9978/file/TVBox/logo.png",
 //数据接口====================================网站===============================================
   "sites": [
@@ -744,8 +744,8 @@
     "name": "🇨🇳┣☪公✿告┫信息",
     "type": 3,
     "api": "csp_Notice",
-    "jar": "https://testingcf.jsdelivr.net/gh/LIUJEI/TB@master/lib/liuli.php",
-    "ext": "https://testingcf.jsdelivr.net/gh/LIUJEI/TB@master/lib/公告.php"
+    "jar": "https://testingcf.jsdelivr.net/gh/LIUJEI/TB@master/libs/liuli.php",
+    "ext": "https://testingcf.jsdelivr.net/gh/LIUJEI/TB@master/libs/公告.php"
 },
 {
     "key": "csp_Market",
@@ -753,7 +753,7 @@
     "type": 3,
     "api": "csp_Market",
     "indexs": 0,
-    "ext": "https://testingcf.jsdelivr.net/gh/LIUJEI/TB@master/lib/single.png"
+    "ext": "https://testingcf.jsdelivr.net/gh/LIUJEI/TB@master/libs/single.png"
 }
 ],
 "parses": [	

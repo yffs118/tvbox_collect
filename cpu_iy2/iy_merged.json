@@ -723,24 +723,18 @@
     },
     {
       "key": "瓜子体育",
-      "name": "📺看球｜点播",
+      "name": "📺瓜子｜点播",
       "type": 3,
-      "api": "csp_SportKaFeiGuard",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "changeable": 0,
+      "api": "csp_GuaziTY",
       "style": {
         "type": "list"
-      },
-      "jar": "https://zl.wpscdn.cn/2026/07/29/space_img/3a24811b-1e67-44f4-ac86-21660c46841b.png;md5;48534c2903b56915217484979218701c",
-      "ext": "https://9280.kstore.space/newwex.json"
+      }
     },
     {
       "key": "88看球",
       "name": "📺抖音｜点播",
       "type": 4,
-      "api": "http://115.191.55.109:7023/api/tvbox/source/2054142177793019904?token=phcB9KDg6dzm8lNH5uG67q5BXdf0X3dR",
+      "api": "http://nm.4688888.xyz/vod/dy/dylive.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
