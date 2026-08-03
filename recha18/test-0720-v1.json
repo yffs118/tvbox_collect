@@ -2,59 +2,17 @@
   "spider": "./jar/fm.jar;md5;b0adab2fad1de8871b9533527f407cdf",
   "logo": "https://p3-pc.douyinpic.com/img/aweme-avatar/tos-cn-i-0813_6e2553f5708c414386eeca88b5f2674a~c5_300x300.jpeg?from=2956013662",
   "wallpaper": "https://gitlab.com/tenrecha/recha/-/raw/main/background.jpg",
-  "notice": "115.07.20 ver.3 加入嗷嗚漫劇",
+  "notice": "115.08.03 ver.1 加入",
   "sites": [ 
-    {    
-             "key":"csp_AppQi_爱影",
-             "name":"[AppQi]┃爱影",
-             "type":3,
-             "api":"csp_AppQi",
-             "jar":"./jar/愛影.jar",
-             "searchable":1,"quickSearch":1,
-             "filterable":1,
-             "changeable":1,
-             "ext":{"url":"http://222.211.75.252:16118",
-             "dataKey":"0UKM8jkasM8tdzgW",
-             "dataIv":"0UKM8jkasM8tdzgW",
-             "init":"initV122",
-            "search":"mineInfo",
-            "ua":"okhttp/3.10.0"
-        }
-        },
+ 
+
     		{
             "key":"youtube",
             "name":"youtube",
 			"type": 3,
       "style"     : {"ratio": 1.7},
 			"api": "./py/油管.py"
-		},
-    {
-      "key"       : "py_黃豆短劇",
-      "name"      : "🔞｜黃豆｜？",
-      "type"      : 3,
-      "api"       : "./py/黄豆短剧.py",
-      "searchable": 1,
-      "filterable": 0,
-      "changeable": 1
-    },       
-    {
-      "key"       : "py_808影院",
-      "name"      : "🏆｜818｜？",
-      "type"      : 3,
-      "api"       : "./py/808影院.py",
-      "searchable": 1,
-      "filterable": 0,
-      "changeable": 1
-    },          
-    {
-      "key"       : "py_麒麟影视",
-      "name"      : "🏆｜麒麟｜？",
-      "type"      : 3,
-      "api"       : "./py/麒麟影视.py",
-      "searchable": 1,
-      "filterable": 0,
-      "changeable": 1
-    },        
+		},            
 
     {
       "key": "豆瓣",
@@ -179,7 +137,7 @@
             "searchable": 1,
             "quickSearch": 1,
             "changeable": 1
-        },    
+        },
     {
       "key": "Uvod",
       "name": "🏆｜Uvod｜備用",
@@ -366,6 +324,15 @@
       "quickSearch": 1,
       "filterable" : 1
     },
+    {
+      "key"       : "py_麒麟影视",
+      "name"      : "🏆｜麒麟｜3倍◎無廣",
+      "type"      : 3,
+      "api"       : "./py/麒麟影视.py",
+      "searchable": 1,
+      "filterable": 0,
+      "changeable": 1
+    },      
     {
       "key": "山楂",
       "name": "🏆｜山楂｜高清",

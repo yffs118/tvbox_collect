@@ -10,7 +10,7 @@ const sites = [
 ]
 const appConfig = {
     siteName: "枫叶4k影院",
-    siteUrl: sites[0]
+    siteUrl: sites[0] // 默认使用 cd-zj.com
 }
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36";
 const Headers = {
@@ -18,7 +18,7 @@ const Headers = {
     "Referer": appConfig.siteUrl + "/",
 }
 async function init(ext) {
-
+    // 可以在这里做初始化配置
 }
 
 function getYearFilter() {
@@ -68,7 +68,7 @@ const OtherFilters = [
 ];
 
 const myFilters = {
-    // 
+    // 电视剧
     "2": [
         {
             key: "type", "name": "类型", value: [
@@ -76,7 +76,6 @@ const myFilters = {
                 { "n": "国产剧", "v": "13" },
                 { "n": "日韩剧", "v": "15" },
                 { "n": "海外剧", "v": "16" },
-
             ]
         },
         {
@@ -91,6 +90,7 @@ const myFilters = {
         },
         ...OtherFilters
     ],
+    // 电影
     "1": [
         {
             "key": "type", "name": "类型", "value": [
@@ -136,13 +136,13 @@ const myFilters = {
         },
         ...OtherFilters
     ],
+    // 动漫
     "4": [
         {
             "key": "type", "name": "类型", "value": [
                 { "n": "全部", "v": "4" },
                 { "n": "国产动漫", "v": "25" },
                 { "n": "日韩动漫", "v": "26" },
-
             ]
         },
         {
@@ -172,13 +172,13 @@ const myFilters = {
         },
         ...OtherFilters
     ],
+    // 综艺
     "3": [
         {
             "key": "type", "name": "类型", "value": [
                 { "n": "全部", "v": "3" },
                 { "n": "大陆综艺", "v": "21" },
                 { "n": "日韩综艺", "v": "22" },
-
             ]
         },
         {
@@ -201,130 +201,156 @@ const myFilters = {
         },
         ...OtherFilters
     ],
+    // 短剧
     "5": [
         getYearFilter(),
         getLetterFilter()
-
     ],
-
 };
+
 async function home(filter) {
     return JSON.stringify({
         class: [
-            { type_id: "", type_name: "热映推荐", },
+            { type_id: "", type_name: "热映推荐" },
             { type_id: "/label/qq", type_name: "腾讯精选" },
             { type_id: "/label/bli", type_name: "哔哩精选" },
             { type_id: "/label/youku", type_name: "优酷精选" },
-            { type_id: "1", type_name: "电影" },
-            { type_id: "2", type_name: "电视剧", },
-            { type_id: "4", type_name: "动漫" },
-            { type_id: "3", type_name: "综艺" },
-            { type_id: "5", type_name: "热门短剧" },
         ],
         filters: myFilters
     });
 }
-async function category(tid, pg, filter, extend) {
 
+async function category(tid, pg, filter, extend) {
     pg = pg || 1;
     let type = extend.type || tid;
 
-    const isLanel = tid.startsWith("/label");
-
+    const isLanel = tid && tid.startsWith("/label");
     let url = "";
 
+    // 根据站点确定前缀
+    const isGzwlr = appConfig.siteUrl === 'https://www.gzwlr.com';
+    const typePrefix = isGzwlr ? "list" : "cupfox-list";
+    const searchPrefix = isGzwlr ? "search" : "cupfox-search";
 
-    //www.gzwlr.com 的type 前缀不太一样
-    const typePrefix = appConfig.siteUrl === 'https://www.gzwlr.com' ? "list" : "cupfox-list";
     if (isLanel) {
-        // 1. 获取VIP精选标签页
+        // 标签页
         url = appConfig.siteUrl + tid + `/page/${pg}.html`;
-    }
-    else if (type === "") {
-        // 1. 获取热门短剧
-        url = appConfig.siteUrl;
+    } else if (type === "" || type === "5") {
+        // 热门短剧或首页推荐
+        if (type === "5") {
+            // 短剧分类
+            let classVal = extend.class || '';
+            let areaVal = extend.area || '';
+            let langVal = extend.lang || '';
+            let letterVal = extend.letter || '';
+            let orderVal = extend.orderBy || '';
+            let yearVal = extend.year || '';
+            url = `${appConfig.siteUrl}/${typePrefix}/5-${areaVal}-${''}-${classVal}-${langVal}-${letterVal}-${orderVal}-${''}-${pg}-${''}-${''}-${yearVal}.html`;
+        } else {
+            url = appConfig.siteUrl;
+        }
     } else {
-        // 2. 提取各个筛选项
-        let classVal = extend.class || ''; // 剧情 (古装)
-        let areaVal = extend.area || ''; // 地区 (大陆)
-        let langVal = extend.lang || ''; // 语言 (国语)
-        let letterVal = extend.letter || ''; // 字母 (空)
-        let orderVal = extend.orderBy || ''; // 排序 (空)
-        let yearVal = extend.year || ''; // 年份 (2026)
+        // 分类筛选
+        let classVal = extend.class || '';
+        let areaVal = extend.area || '';
+        let langVal = extend.lang || '';
+        let letterVal = extend.letter || '';
+        let orderVal = extend.orderBy || '';
+        let yearVal = extend.year || '';
 
-        // 3. 严格对照图片的 11 个横杠精准拼接 (不编码)
-        // 结构：分类-地区-空-剧情-语言-字母-排序-空-页码-空-空-年份
         url = `${appConfig.siteUrl}/${typePrefix}/${type}-${areaVal}-${''}-${classVal}-${langVal}-${letterVal}-${orderVal}-${''}-${pg}-${''}-${''}-${yearVal}.html`;
     }
 
-
-
     const html = (await req(url)).content;
-
     const $ = cheerio.load(html);
     let list = [];
 
+    // 适配两种站点的列表选择器
     $(".public-list-div.public-list-bj").each(function (index, el) {
-
         let vod_id = $(el).find("a.public-list-exp").attr("href");
-        let vod_name = $(el).find("a.public-list-exp").attr("title").trim();
-        let vod_pic = $(el).find(".public-list-exp img").attr("data-src");
+        let vod_name = $(el).find("a.public-list-exp").attr("title")?.trim() || '';
+        let vod_pic = $(el).find(".public-list-exp img").attr("data-src") || $(el).find(".public-list-exp img").attr("src") || '';
         let vod_remarks = $(el).find(".ft2").text().trim();
-        let text4k = $(el).find('.public-list-exp .public-prt-g').text().trim() || ''
-        // 如果长度小于4，vod_year不会显示
-        text4k = text4k ? `「${text4k}」` : ''
-        let updateTime = $(el).find('.public-list-exp .public-prt')?.eq(1).text().trim() || ''
-        let vod_year = text4k + " " + updateTime
+        let text4k = $(el).find('.public-list-exp .public-prt-g').text().trim() || '';
+        text4k = text4k ? `「${text4k}」` : '';
+        let updateTime = $(el).find('.public-list-exp .public-prt')?.eq(1).text().trim() || '';
+        let vod_year = text4k + " " + updateTime;
 
-        const vod = {
+        list.push({
             vod_id,
             vod_name,
             vod_pic,
             vod_remarks,
-            // 利用这个 展示上标签
             vod_year
-        }
-
-        list.push(vod);
+        });
     });
 
-    // 当前1/429页
-    const pageStr = $('.page-tip').text().trim()
-    const pagecount = pageStr.match(/\d+\/(\d+)页/)?.[1] || 1
+    // 如果上面的选择器没抓到，尝试备用选择器
+    if (list.length === 0) {
+        $(".video-item, .movie-item, .public-list-bj").each(function (index, el) {
+            let vod_id = $(el).find("a").attr("href") || '';
+            let vod_name = $(el).find("a").attr("title")?.trim() || $(el).find(".title").text().trim() || '';
+            let vod_pic = $(el).find("img").attr("data-src") || $(el).find("img").attr("src") || '';
+            let vod_remarks = $(el).find(".remarks, .status").text().trim() || '';
+            
+            if (vod_id && vod_name) {
+                list.push({
+                    vod_id,
+                    vod_name,
+                    vod_pic,
+                    vod_remarks,
+                    vod_year: ''
+                });
+            }
+        });
+    }
+
+    const pageStr = $('.page-tip').text().trim();
+    const pagecount = pageStr.match(/\d+\/(\d+)页/)?.[1] || 
+                      $('.page-count, .total-page').text().match(/(\d+)/)?.[1] || 
+                      1;
+
     return JSON.stringify({
         list,
-        pagecount
+        pagecount: parseInt(pagecount) || 1
     });
-
 }
+
 async function search(wd, quick, page) {
     if (page >= 2) {
-        // 不需要再请求下一页了
         return JSON.stringify({ list: [], pagecount: 1 });
     }
     try {
-        //www.gzwlr.com 的前缀不太一样
-        const searchPrefex = appConfig.siteUrl === 'https://www.gzwlr.com' ? "search" : "cupfox-search";
-        const url = `${appConfig.siteUrl}/${searchPrefex}/-------------.html?wd=${wd}`;
+        const isGzwlr = appConfig.siteUrl === 'https://www.gzwlr.com';
+        const searchPrefix = isGzwlr ? "search" : "cupfox-search";
+        const url = `${appConfig.siteUrl}/${searchPrefix}/-------------.html?wd=${encodeURIComponent(wd)}`;
+        
         const html = (await req(url)).content;
         const $ = cheerio.load(html);
         let list = [];
-        $('.search-box').each((i, el) => {
-            const vod_id = $(el).find(".thumb-txt a").attr('href') || '';
-            const vod_name = $(el).find(".thumb-txt a").text().trim()
-            const vod_pic = $(el).find('.left img').attr('data-src') || '';
-            const vod_remarks = $(el).find('.public-list-prb').text().trim()
-            list.push({
-                vod_id,
-                vod_name,
-                vod_pic,
-                vod_remarks
-            });
-        })
+
+        // 适配搜索结果的多种选择器
+        $('.search-box, .video-item, .public-list-div').each((i, el) => {
+            const vod_id = $(el).find("a.thumb-txt, a.title, a").attr('href') || '';
+            const vod_name = $(el).find(".thumb-txt a, .title a, .name").text().trim() || 
+                             $(el).find("a").attr('title')?.trim() || '';
+            const vod_pic = $(el).find('.left img, .thumb img, img').attr('data-src') || 
+                            $(el).find('.left img, .thumb img, img').attr('src') || '';
+            const vod_remarks = $(el).find('.public-list-prb, .remarks, .status').text().trim() || '';
+
+            if (vod_id && vod_name) {
+                list.push({
+                    vod_id,
+                    vod_name,
+                    vod_pic,
+                    vod_remarks
+                });
+            }
+        });
 
         return JSON.stringify({
             list: list,
-            pagecount: 1  // 假设只有一页
+            pagecount: 1
         });
     } catch (e) {
         console.error("❌ search 遭遇内部崩溃 =", e.message);
@@ -332,33 +358,44 @@ async function search(wd, quick, page) {
     }
 }
 
-
 async function detail(id) {
     try {
-        const videoId = id;
-        const url = appConfig.siteUrl + videoId;
+        const url = appConfig.siteUrl + id;
         const response = await req(url);
         const html = response ? response.content : '';
-
         const $ = cheerio.load(html);
 
         // 1. 基础信息解析
-        const vod_name = $('.slide-info-title').text().trim();
-        const vod_pic = $('.detail-pic img').attr("data-src") || '';
-        const vod_actor = $('.detail-info .slide-info').eq(2).text().replace(/演员：\s*/, '').trim();
-        const vod_remarks = $('.detail-info .slide-info').eq(4).text().replace(/连载\s*:\s*/, '').trim();
-        const vod_content = $('#height_limit').text().trim();
+        const vod_name = $('.slide-info-title').text().trim() || 
+                         $('.title, .detail-title').text().trim() || '';
+        const vod_pic = $('.detail-pic img').attr("data-src") || 
+                        $('.detail-pic img').attr("src") || 
+                        $('.cover img').attr("src") || '';
+        const vod_actor = $('.detail-info .slide-info').eq(2).text().replace(/演员：\s*/, '').trim() || 
+                          $('.actor, .cast').text().trim() || '';
+        const vod_remarks = $('.detail-info .slide-info').eq(4).text().replace(/连载\s*:\s*/, '').trim() || 
+                            $('.status, .update').text().trim() || '';
+        const vod_content = $('#height_limit').text().trim() || 
+                            $('.desc, .summary, .content').text().trim() || '';
 
-        // 2. 仅获取：线路名称列表
+        // 2. 线路名称
         const lines = [];
-        $('.swiper-slide').each((i, el) => {
-            const lineName = $(el).clone().find('i, span').remove().end().text().trim();
+        $('.swiper-slide, .play-tab, .tab-item').each((i, el) => {
+            const lineName = $(el).clone().find('i, span, .badge').remove().end().text().trim();
             if (lineName) lines.push(lineName);
         });
 
-        // 3. 仅获取：剧集原始列表（二维数组）
+        // 如果没抓到线路，尝试备用选择器
+        if (lines.length === 0) {
+            $('.play-source, .source-tab a, .play-list-tab').each((i, el) => {
+                const lineName = $(el).text().trim();
+                if (lineName) lines.push(lineName);
+            });
+        }
+
+        // 3. 剧集列表
         const playlists = [];
-        $('.anthology-list-box').each((lineIndex, poolEl) => {
+        $('.anthology-list-box, .play-list, .episode-list').each((lineIndex, poolEl) => {
             const episodes = [];
             $(poolEl).find('a').each((episodeIndex, epEl) => {
                 const name = $(epEl).text().trim();
@@ -367,15 +404,33 @@ async function detail(id) {
                     episodes.push(`${name}\$${href}`);
                 }
             });
-            playlists.push(episodes);
+            if (episodes.length > 0) {
+                playlists.push(episodes);
+            }
         });
 
-        // 4. 调用封装函数：处理反转与拼接
+        // 如果没抓到，尝试备用选择器
+        if (playlists.length === 0) {
+            $('.playlist, .episode-group').each((i, el) => {
+                const episodes = [];
+                $(el).find('a, .episode a').each((j, epEl) => {
+                    const name = $(epEl).text().trim();
+                    const href = $(epEl).attr('href') || '';
+                    if (name && href) {
+                        episodes.push(`${name}\$${href}`);
+                    }
+                });
+                if (episodes.length > 0) {
+                    playlists.push(episodes);
+                }
+            });
+        }
+
+        // 4. 处理剧集数据
         const { vod_play_from, vod_play_url } = buildVodPlayData(lines, playlists, true);
 
-        // 5. 组装返回
         const vod = {
-            vod_id: videoId,
+            vod_id: id,
             vod_name,
             vod_pic,
             vod_actor,
@@ -392,13 +447,7 @@ async function detail(id) {
         return JSON.stringify({ list: [] });
     }
 }
-/**
- * 核心封装：将线路列表和剧集二维数组转换为 CMS 规范的字符串
- * @param {Array<string>} lines - 线路名称列表，例如: ['蓝光折叠', '热播专线']
- * @param {Array<Array<string>>} playlists - 剧集列表（二维数组），每个子数组包含 '集数$链接'
- * @param {boolean} shouldReverse - 是否需要对剧集进行反转，默认 true
- * @returns {Object} { vod_play_from, vod_play_url }
- */
+
 function buildVodPlayData(lines, playlists, shouldReverse = true) {
     const processedPlaylists = playlists.map(eps => {
         if (shouldReverse) {
@@ -411,30 +460,37 @@ function buildVodPlayData(lines, playlists, shouldReverse = true) {
         vod_play_url: processedPlaylists.join('$$$')
     };
 }
+
 function isDirectUrl(url) {
-    return url.startsWith('http') || url.endsWith(".m3u8") || url.endsWith(".mp4");
+    return url && (url.startsWith('http') || url.endsWith(".m3u8") || url.endsWith(".mp4"));
 }
+
 async function parsePLayUrl(is2kLine, url) {
     const parseApiUrl = is2kLine ? "https://zzrs.mfdyvip.com" : "https://fgsrg.hzqingshan.com";
     
     try {
-        // 1. 第一步 GET 保持不变
         const htmlRes = await req(`${parseApiUrl}/player/?url=${url}`, { method: 'GET', headers: Headers });
         const token = cheerio.load(htmlRes.content)('#player-data').attr('data-te');
         
-        // 2. 核心调整：严格按照 Req.java 的字段定义去传参
+        if (!token) {
+            console.log("未获取到token，尝试备用解析方式");
+            // 尝试直接返回原URL
+            return url;
+        }
+        
         let playDataRes = await req(`${parseApiUrl}/player/mplayer.php`, {
             method: 'POST',
-            // postType: 'form', // 👈 源码确认支持，必须写
             headers: {
                 'User-Agent': UA,
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             },
-             body: `url=${encodeURIComponent(url)}&token=${encodeURIComponent(token)}` // 手动拼接字符串
+            body: `url=${encodeURIComponent(url)}&token=${encodeURIComponent(token)}`
         });
         
-        return JSON.parse(playDataRes.content).url;
+        const result = JSON.parse(playDataRes.content);
+        return result.url || '';
     } catch (e) {
+        console.error("解析播放地址失败:", e.message);
         return "";
     }
 }
@@ -442,9 +498,13 @@ async function parsePLayUrl(is2kLine, url) {
 async function play(flag, id, flags) {
     try {
         const html = (await req(`${appConfig.siteUrl}${id}`)).content;
-        const url = getPlayUrl(html)
+        const url = getPlayUrl(html);
 
-        console.log("play url =", url)
+        console.log("play url =", url);
+
+        if (!url) {
+            return JSON.stringify({ parse: 0, url: "", msg: "未找到播放地址" });
+        }
 
         if (isDirectUrl(url)) {
             return JSON.stringify({
@@ -455,12 +515,14 @@ async function play(flag, id, flags) {
                 url,
             });
         }
-        const is2kLine = flag.includes('2k')
-        const playUrl = await parsePLayUrl(is2kLine, url)
+
+        const is2kLine = flag && flag.includes('2k');
+        const playUrl = await parsePLayUrl(is2kLine, url);
 
         if (!playUrl) {
-            return JSON.stringify({ parse: 0, url: "" ,msg: "解析失败,请更换线路" });
+            return JSON.stringify({ parse: 0, url: "", msg: "解析失败，请更换线路" });
         }
+
         return JSON.stringify({
             parse: 0,
             header: {
@@ -472,13 +534,25 @@ async function play(flag, id, flags) {
         console.error("❌ play 遭遇内部崩溃 =", e);
         return JSON.stringify({ parse: 0, url: "" });
     }
-
 }
 
 function getPlayUrl(html) {
-    const match = html.match(/var\s+player_aaaa[\s\S]*?"url"\s*:\s*"([^"]+)"/);
+    // 尝试多种匹配模式
+    let match = html.match(/var\s+player_aaaa[\s\S]*?"url"\s*:\s*"([^"]+)"/);
     let url = match ? match[1] : '';
+    
+    if (!url) {
+        match = html.match(/"url"\s*:\s*"([^"]+)"/);
+        url = match ? match[1] : '';
+    }
+    
+    if (!url) {
+        match = html.match(/player_aaaa\s*=\s*\{[\s\S]*?url:\s*['"]([^'"]+)['"]/);
+        url = match ? match[1] : '';
+    }
+    
     url = url.replace(/\\/g, '');
     return url;
 }
+
 export default { init, home, category, detail, search, play };

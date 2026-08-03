@@ -151,8 +151,14 @@ class Spider(Spider):
                "vod_play_from": "$$$".join(froms), "vod_play_url": "$$$".join(urls)}
         return {"list": [vod]}
 
+    def _referer(self, url):
+        m = re.search(r'(https?://[^/]+)/', url)
+        return (m.group(1) + "/") if m else self.host + "/"
+
     def playerContent(self, flag, id, vipFlags):
         pid = id if id.startswith("http") else self._fix(id)
+        if re.search(r'\.(?:m3u8|mp4)(?:[?#]|$)', pid):
+            return {"parse": 0, "url": pid, "header": {"User-Agent": self.headers["User-Agent"], "Referer": self._referer(pid)}}
         html = self._get(pid) or ""
         url = ""
         for p in [r'var\s+now\s*=\s*["\']([^"\']+)["\']', r'var\s+player_\w+\s*=\s*(\{.*?\})\s*[;<]', r'"url"\s*:\s*"([^"]+\.(?:m3u8|mp4)[^"]*)"', r'url:\s*["\']([^"\']+\.(?:m3u8|mp4)[^"\']*)["\']', r'(https?://[^\s"\'\\]+\.(?:m3u8|mp4)[^\s"\'\\]*)']:
@@ -163,6 +169,6 @@ class Spider(Spider):
                 try: val = json.loads(val).get("url", "")
                 except Exception:
                     m2 = re.search(r'"(https?://[^"]+\.(?:m3u8|mp4)[^"]*)"', val); val = m2.group(1) if m2 else ""
-            if val and not val.startswith("#"): url = self._fix(val); break
-        if not url: return {"parse": 1, "url": pid, "header": self.headers}
-        return {"parse": 0, "url": url, "header": {"User-Agent": self.headers["User-Agent"], "Referer": self.host + "/"}}
+            if val and not val.startswith("#"): url = self._fix(val.split("$")[0]); break
+        if not url: return {"parse": 1, "url": pid, "header": {"User-Agent": self.headers["User-Agent"], "Referer": self._referer(pid)}}
+        return {"parse": 0, "url": url, "header": {"User-Agent": self.headers["User-Agent"], "Referer": self._referer(url)}}
