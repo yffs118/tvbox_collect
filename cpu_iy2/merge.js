@@ -4,18 +4,18 @@ const axios = require("axios");
 const ARRAY_FIELDS = ["sites", "lives", "flags", "parses", "rules", "ads"];
 
 // ------------------------------
-// 自动获取 Wex 最新 spider
+// 自动获取 Aowu 最新 spider
 // ------------------------------
-async function getWexSpider() {
+async function getAowuSpider() {
   try {
-    const url = "https://9280.kstore.space/newwex.json";
+    const url = "https://9763.kstore.vip/aowu.json";
     const res = await axios.get(url, { timeout: 10000 });
     if (res.data && res.data.spider) {
-      console.log("🕷️ 已获取最新 Wex spider:", res.data.spider);
+      console.log("🕷️ 已获取最新 Aowu spider:", res.data.spider);
       return res.data.spider;
     }
   } catch (e) {
-    console.error("❌ 获取 Wex spider 失败:", e);
+    console.error("❌ 获取 Aowu spider 失败:", e);
   }
   return null;
 }
@@ -123,9 +123,9 @@ function deepMerge(api, edited) {
     // 先合并
     const merged = deepMerge(api, edited);
 
-    // 同时获取最新 Wex 和 Fish spider
-const [wexSpider, fishSpider] = await Promise.all([
-  getWexSpider(),
+    // 同时获取最新 Aowu 和 Fish spider
+const [AowuSpider, fishSpider] = await Promise.all([
+  getAowuSpider(),
   getFishSpider()
 ]);
 
@@ -135,14 +135,14 @@ const [wexSpider, fishSpider] = await Promise.all([
 
 if (merged.sites && Array.isArray(merged.sites)) {
   merged.sites = merged.sites.map(site => {
-    // 为 csp_SportKaFeiGuard 注入 Wex spider
-    if (site.api === "csp_SportKaFeiGuard" && wexSpider) {
-      console.log(`✨ 为 ${site.key} 注入最新 Wex spider`);
+    // 为 csp_KafLiveAmns 注入 Aowu spider
+    if (site.api === "csp_KafLiveAmns" && AowuSpider) {
+      console.log(`✨ 为 ${site.key} 注入最新 Aowu spider`);
 
       return {
         ...site,
-        jar: wexSpider,
-        ext: "https://9280.kstore.space/newwex.json"
+        jar: AowuSpider,
+        ext: "https://9763.kstore.vip/aowu.json"
       };
     }
 

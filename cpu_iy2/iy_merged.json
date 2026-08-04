@@ -897,7 +897,19 @@
       "ext": "https://gh-proxy.com/https://raw.githubusercontent.com/IY-CPU/IY/main/lib/电影港.png"
     },
     {
+      "name": "📺咖啡｜点播",
       "key": "球通体育",
+      "type": 3,
+      "api": "csp_KafLiveAmns",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1,
+      "jar": "https://nos.netease.com/ysf/5796b487b7b641255c855359718d6315.png;md5;94a90ec5cc3fc4c3d2ae1421a9cb2d38",
+      "ext": "https://9763.kstore.vip/aowu.json"
+    },
+    {
+      "key": "瓜子体育",
       "name": "📺抖音｜点播",
       "type": 4,
       "api": "http://nm.4688888.xyz/vod/dy/dylive.php/provide/vod/",
@@ -906,15 +918,6 @@
       "filterable": 1,
       "changeable": 0,
       "playable": 1
-    },
-    {
-      "key": "瓜子体育",
-      "name": "📺瓜子｜点播",
-      "type": 3,
-      "api": "csp_GuaziTY",
-      "style": {
-        "type": "list"
-      }
     },
     {
       "key": "网络直播",

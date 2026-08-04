@@ -84,7 +84,17 @@
       "delete": true
     },
     {
+      "name": "📺咖啡｜点播",
       "key": "球通体育",
+      "type": 3,
+      "api": "csp_KafLiveAmns",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "瓜子体育",
       "name": "📺抖音｜点播",
       "type": 4,
       "api": "http://nm.4688888.xyz/vod/dy/dylive.php/provide/vod/",
