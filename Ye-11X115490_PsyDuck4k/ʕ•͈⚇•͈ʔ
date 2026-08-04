@@ -159,22 +159,6 @@
     ],
     "parses": [
         {
-            "name": "影探解析",
-            "type": 1,
-            "url": "https://mk1080p.top/zzbh.php?url=",
-            "ext": {
-                "flag": [
-                    "联通云",
-                    "移动云",
-                    "腾讯",
-                    "爱奇艺",
-                    "优酷",
-                    "芒果",
-                    "BL路线"
-                ]
-            }
-        },
-        {
             "name": "4K",
             "type": 1,
             "url": "http://8.134.205.252:39466/ceshi/cs.php?key=udk&url=",

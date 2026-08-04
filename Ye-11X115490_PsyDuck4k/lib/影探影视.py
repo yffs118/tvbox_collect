@@ -1,6 +1,6 @@
 import re, sys, json, base64
 from Crypto.Cipher import AES
-from urllib.parse import urljoin
+from urllib.parse import urljoin, quote
 from Crypto.Util.Padding import unpad
 from base.spider import Spider
 
@@ -9,21 +9,80 @@ sys.path.append('..')
 
 class Spider(Spider):
     headers = {'User-Agent': 'okhttp/4.12.0'}
+    # 解析接口请求头(与 PHP 端一致)
+    parse_headers = {'User-Agent': 'okhttp-okgo/jeasonlzy'}
 
     FIXED_CONFIG = {
         'host': 'http://cms.lyyytv.cn',
         'cmskey': 'wP5bvxoc3yv7FoBQENFZuAF0EUYr4LTy',
-        'RawPlayUrl': 0
+        'RawPlayUrl': 0,
+        # ldmax 内置解析接口
+        'parse_api': 'https://mk1080p.top/zzbh.php?url='
     }
 
     def init(self, extend=''):
         self.host = self.FIXED_CONFIG['host']
         self.cmskey = self.FIXED_CONFIG.get('cmskey', '')
+        self.parse_api = self.FIXED_CONFIG.get('parse_api', '')
         raw_play_url = self.FIXED_CONFIG.get('RawPlayUrl', 0)
         if raw_play_url == 1:
             self.raw_play_url = 1
         else:
             self.raw_play_url = 0
+
+    def ldmax_decrypt(self, encrypted_base64, depth=0):
+        # 对应 PHP 的 LdmaxDecryptor::decrypt,递归解密 ldmax.cooom 加密链接
+        if depth > 5:
+            return None
+        # 严格 base64 解码(对应 PHP base64_decode 第二参 true),
+        # 非法 base64(如明文URL)直接原样返回
+        cleaned = re.sub(r'\s+', '', encrypted_base64)
+        try:
+            decoded = base64.b64decode(cleaned, validate=True).decode('utf-8', errors='ignore')
+        except Exception:
+            return encrypted_base64
+        url = re.sub(r'\s+', '', decoded)
+        if 'ldmax.cooom' not in url:
+            return url
+        path = re.sub(r'https?://ldmax\.cooom/', '', url)
+        if len(path) < 16:
+            return None
+        key = path[:16][::-1].encode('utf-8')
+        ciphertext_b64 = re.sub(r'\s+', '', path[16:])
+        try:
+            ciphertext = base64.b64decode(ciphertext_b64, validate=True)
+        except Exception:
+            return None
+        try:
+            cipher = AES.new(key, AES.MODE_CBC, key)
+            decrypted = cipher.decrypt(ciphertext)
+        except Exception:
+            return None
+        if decrypted:
+            pad = decrypted[-1]
+            if 0 < pad <= 16:
+                decrypted = decrypted[:-pad]
+        result = decrypted.decode('utf-8', errors='ignore').strip()
+        if 'ldmax.cooom' in result:
+            return self.ldmax_decrypt(base64.b64encode(result.encode('utf-8')).decode('utf-8'), depth + 1)
+        return result
+
+    def ldmax_parse(self, video_url):
+        # 对应 PHP 主流程:解密 -> 调用解析接口 -> 二次解密
+        decrypted = self.ldmax_decrypt(video_url)
+        if not decrypted or not re.match(r'^https?://', decrypted):
+            return None
+        try:
+            parse_url = self.parse_api + quote(decrypted, safe='')
+            resp = self.fetch(parse_url, headers=self.parse_headers, timeout=30).json()
+        except Exception:
+            return None
+        if not resp or resp.get('code') != 200 or not resp.get('url'):
+            return None
+        final_url = self.ldmax_decrypt(resp['url'])
+        if final_url and re.match(r'^https?://', final_url):
+            return {'url': final_url, 'type': resp.get('type', 'video')}
+        return None
 
     def homeVideoContent(self):
         data = self.fetch(f"{self.host}/api.php/app/index_video?token=", headers=self.headers).json()
@@ -113,6 +172,18 @@ class Spider(Spider):
         # 移除URL中的百分号编码（如 %26 %20 等），直接删除而非解码
         # 例: 04.国%26粤.mp4 → 04.国粤.mp4
         video_id = re.sub(r'%[0-9A-Fa-f]{2}', '', video_id)
+        # 需要内置解析的情况:
+        # 1. 非明文URL(base64密文等)
+        # 2. 本站域名URL(lyyytv.cn 伪直链,需经 parse_api 二次解析才能拿到真实播放地址)
+        is_plain_url = video_id.startswith(('http://', 'https://'))
+        if (not is_plain_url) or (is_plain_url and 'lyyytv.cn' in video_id):
+            parsed = self.ldmax_parse(video_id)
+            if parsed:
+                return {'jx': 0, 'parse': 0, 'playUrl': '', 'url': parsed['url'], 'header': self.headers}
+        # 真正的直链(mp4/m3u8 等)直接播放
+        if self.check_paly_url(video_id):
+            return {'jx': 0, 'parse': 0, 'playUrl': '', 'url': video_id, 'header': self.headers}
+        # 其他情况交给 tvbox 外置解析
         return {'jx': 1, 'playUrl': '', 'parse': 0, 'url': video_id, 'header': self.headers}
 
     def lvdou(self, text):
