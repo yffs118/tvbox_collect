@@ -169,10 +169,30 @@ class Spider(BaseSpider):
             return base_proxy + '?type=tbr_img&url=' + quote(img_url_b64, safe='')
 
     def _process_play_url(self, url):
-        # 原始 preview_video URL 直接可用，不再做域名替换
-        # 仅清理无用的 seconds 参数
+        # 完整视频 URL 直接可用，仅清理无用的 seconds 参数
         url = url.replace('&seconds=30', '')
         return url
+
+    def _build_play_urls(self, item):
+        # 将各清晰度作为不同播放源，名称与地址一一对应（动态跳过缺失清晰度）
+        quality_map = [
+            ('source_1080', '高清'),
+            ('source_720', '标清'),
+            ('source_480', '低清'),
+            ('source_240', '流畅'),
+        ]
+        pairs = []
+        for key, name in quality_map:
+            u = item.get(key, '')
+            if u:
+                pairs.append((name, self._process_play_url(u)))
+        # 站点常只填单个 source 字段，字段名与真实分辨率不一致，单源时不标注清晰度
+        if len(pairs) == 1:
+            pairs = [('默认', pairs[0][1])]
+        froms = [p[0] for p in pairs]
+        urls = [p[1] for p in pairs]
+        # vod_id 同时携带 名称串 与 地址串，detailContent 拆分
+        return '|||'.join(['$$$'.join(froms), '$$$'.join(urls)])
 
     def homeContent(self, filter):
         result = {}
@@ -201,7 +221,7 @@ class Spider(BaseSpider):
                 items = []
             for item in items:
                 video_list.append({
-                    'vod_id': item.get('preview_video', ''),
+                    'vod_id': self._build_play_urls(item),
                     'vod_name': item.get('title', ''),
                     'vod_pic': self._decrypt_image_url(item.get('thumb_cover_str', '')),
                     'vod_remarks': item.get('duration_str', ''),
@@ -251,7 +271,7 @@ class Spider(BaseSpider):
                     items = []
                 for item in items:
                     video_list.append({
-                        'vod_id': item.get('preview_video', ''),
+                        'vod_id': self._build_play_urls(item),
                         'vod_name': item.get('title', ''),
                         'vod_pic': self._decrypt_image_url(item.get('thumb_cover_str', '')),
                         'vod_remarks': item.get('duration_str', ''),
@@ -276,7 +296,7 @@ class Spider(BaseSpider):
                     items = []
                 for item in items:
                     video_list.append({
-                        'vod_id': item.get('preview_video', ''),
+                        'vod_id': self._build_play_urls(item),
                         'vod_name': item.get('title', ''),
                         'vod_pic': self._decrypt_image_url(item.get('thumb_cover_str', '')),
                         'vod_remarks': item.get('duration_str', ''),
@@ -299,7 +319,7 @@ class Spider(BaseSpider):
                     items = []
                 for item in items:
                     video_list.append({
-                        'vod_id': item.get('preview_video', ''),
+                        'vod_id': self._build_play_urls(item),
                         'vod_name': item.get('title', ''),
                         'vod_pic': self._decrypt_image_url(item.get('thumb_cover_str', '')),
                         'vod_remarks': item.get('duration_str', ''),
@@ -318,7 +338,7 @@ class Spider(BaseSpider):
                     items = []
                 for item in items:
                     video_list.append({
-                        'vod_id': item.get('preview_video', ''),
+                        'vod_id': self._build_play_urls(item),
                         'vod_name': item.get('title', ''),
                         'vod_pic': self._decrypt_image_url(item.get('thumb_cover_str', '')),
                         'vod_remarks': item.get('duration_str', ''),
@@ -337,7 +357,7 @@ class Spider(BaseSpider):
                     items = []
                 for item in items:
                     video_list.append({
-                        'vod_id': item.get('preview_video', ''),
+                        'vod_id': self._build_play_urls(item),
                         'vod_name': item.get('title', ''),
                         'vod_pic': self._decrypt_image_url(item.get('thumb_cover_str', '')),
                         'vod_remarks': item.get('duration_str', ''),
@@ -384,7 +404,7 @@ class Spider(BaseSpider):
                     items = []
                 for item in items:
                     video_list.append({
-                        'vod_id': item.get('preview_video', ''),
+                        'vod_id': self._build_play_urls(item),
                         'vod_name': item.get('title', ''),
                         'vod_pic': self._decrypt_image_url(item.get('thumb_cover_str', '')),
                         'vod_remarks': item.get('duration_str', ''),
@@ -430,7 +450,7 @@ class Spider(BaseSpider):
                 items = []
             for item in items:
                 video_list.append({
-                    'vod_id': item.get('preview_video', ''),
+                    'vod_id': self._build_play_urls(item),
                     'vod_name': item.get('title', ''),
                     'vod_pic': self._decrypt_image_url(item.get('thumb_cover_str', '')),
                     'vod_remarks': item.get('duration_str', ''),
@@ -439,16 +459,18 @@ class Spider(BaseSpider):
         return {'list': video_list, 'page': pg, 'pagecount': 9999, 'limit': 15, 'total': 99999}
 
     def detailContent(self, ids):
-        play_url = ids[0]
-        final_url = self._process_play_url(play_url)
-
+        raw = ids[0]
+        if '|||' in raw:
+            from_str, url_str = raw.split('|||', 1)
+        else:
+            from_str, url_str = '默认', raw
         vod = {
-            'vod_id': play_url,
+            'vod_id': raw,
             'vod_name': '视频',
             'vod_pic': '',
             'vod_content': '',
-            'vod_play_from': '播放',
-            'vod_play_url': '播放$' + final_url,
+            'vod_play_from': from_str,
+            'vod_play_url': url_str,
         }
         return {'list': [vod]}
 
@@ -470,7 +492,7 @@ class Spider(BaseSpider):
                 items = []
             for item in items:
                 video_list.append({
-                    'vod_id': item.get('preview_video', ''),
+                    'vod_id': self._build_play_urls(item),
                     'vod_name': item.get('title', ''),
                     'vod_pic': self._decrypt_image_url(item.get('thumb_cover_str', '')),
                     'vod_remarks': item.get('duration_str', ''),
