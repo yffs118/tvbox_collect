@@ -21,11 +21,15 @@
             "changeable": 1,
             "playable": 1
         },
-        {
-            "key": "皮皮虾",
+{
+            "key": "ppx",
             "name": "皮皮影视",
-            "type": 4,
-            "api": "http://bu.970088.xyz/video/皮皮虾?platform=ysc&token=688988"
+            "type": 3,
+            "api": "http://8.134.205.252:39466/setbox/PY/ApptoV5.py",
+            "searchable": 1,
+            "quickSearch": 1,
+            "filterable": 0,
+            "ext": "http://154.94.224.56:8762"
         },
         {
             "key": "映视界",
