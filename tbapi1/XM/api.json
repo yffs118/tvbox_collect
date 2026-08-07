@@ -103,9 +103,29 @@
       "quickSearch": 1,
       "filterable": 1,
       "ext": {
-        "index_url": "https://ss.trgfd.cn/cache/index/com.baiyunvideo.app.json",
+        "index_url": "https://ss.trgfd.cn/cache/index/com.huohuavideo.app.json",
         "key_api": "https://www.tangsan.fun/zx.php"
       }
+    },
+    {
+      "key": "AiKan_Spider",
+      "name": "🚀秒播┃爱看剧场",
+      "type": 3,
+      "api": "csp_AiKan",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "http://43.248.117.123:4680"
+    },
+    {
+      "key": "HkybSpider",
+      "name": "🚀秒播┃世界影视",
+      "type": 3,
+      "api": "csp_HkybSpider",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": ""
     },
     {
       "key": "csp_Wwys",
@@ -218,14 +238,22 @@
       "ext": "https://www.tangsan.fun/config.php?source=xifan"
     },
     {
-      "key": "次元城动漫[APP]",
-      "name": "🍠次元┃热门动漫",
+      "key": "方舟动漫",
+      "name": "🌸方舟┃热门动漫",
       "type": 3,
-      "api": "csp_CycSpider",
+      "searchable": 1,
+      "api": "csp_AppGet",
+      "ext": "https://www.cyfz.top|e72cdfd629e8895d|V119|okhttp/3.10"
+    },
+    {
+      "key": "cycani_java",
+      "name": "🌸次元┃热门动",
+      "type": 3,
+      "api": "csp_Ciyuancheng",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "https://www.tangsan.fun/config.php?source=cyc"
+      "ext": ""
     },
     {
       "key": "咕咕动漫",
@@ -432,6 +460,16 @@
         "type": "rect",
         "ratio": 3.8
       }
+    },
+    {
+      "key": "TangDou_Spider",
+      "name": "💃 糖豆┃广场舞",
+      "type": 3,
+      "api": "csp_TangDou",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": ""
     },
     {
       "key": "Aid",

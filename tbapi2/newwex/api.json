@@ -16,7 +16,7 @@
     },
     {
       "key": "Doubanaaaa",
-      "name": "🐮【更新日期:20260804】🐮",
+      "name": "🐮【更新日期:20260805】🐮",
       "type": 3,
       "api": "csp_NewDouBanGuard",
       "indexs": 1,
@@ -855,6 +855,14 @@
       "name": "🎠爱盘┃综合🎠",
       "type": 3,
       "api": "csp_SoAiAiPanSoGuard",
+      "searchable": 1,
+      "changeable": 0
+    },
+    {
+      "key": "SoHaoSo",
+      "name": "🎠好盘┃综合🎠",
+      "type": 3,
+      "api": "csp_SoHaoSoGuard",
       "searchable": 1,
       "changeable": 0
     },
