@@ -36,6 +36,49 @@
       "api": "csp_YGP",
       "searchable": 0
     },
+   {
+      "key": "枫叶影视",
+      "name": "枫叶 ｜秒播",
+      "type": 3,
+      "api": "csp_FengYe",
+      "ext": "https://www.vip1949.com/"
+    },
+
+{
+      "key": "云朵影视",
+      "name": "云朵｜秒播",
+      "type": 3,
+      "api": "csp_App3Q",
+      "ext": {
+        "host": "https://ds3xy2yunsa.xyz",
+        "finger": "SF-F5F11CB15897115AE6BCFE063C288F730CA865588F572C780A3E8477D0DD3776",
+        "updateId": "175070c3-075c-468b-950a-bf575769f4f1",
+        "deviceBrand": "vivo",
+        "deviceModel": "V2309A",
+        "pkg": "com.tvcloud.io",
+        "sk": "SK-sk_13oXDZ7u9j2Tk1c0cawWVFfO",
+        "ver": "1"
+      }
+    },
+
+     {
+      "key": "三秋影视",
+      "name": "三秋 ｜秒播",
+      "type": 3,
+      "api": "csp_App3Q",
+      "ext": {
+        "host": "https://asd123sx23xdacsx.top",
+        "finger": "SF-C3B2B41F6EFFFF9869176CF68F6790E8F07506FC88632C94B4F5F0430D5498CA",
+        "updateId": "38b0ddfd-9aa3-8e42-5c92-a7fddd3d36e7",
+        "deviceBrand": "vivo",
+        "deviceModel": "V2309A",
+        "pkg": "com.sunshine.tv",
+        "sk": "SK-thanks",
+        "ver": "6"
+      }
+    },
+
+
 {
       "key": "茶杯狐[影]",
       "name": "茶杯狐[影]｜秒播",
@@ -401,72 +444,21 @@
       "api": "csp_AppGet",
       "ext": "https://yun-1316442804.cos.ap-guangzhou.myqcloud.com/601.txt|FTgP4Gq8zPiqbt7M|V122|okhttp/3.10.0"
     },
-   {
-      "key": "Kan360",
-      "name": "三六｜秒播",
-      "type": 3,
-      "jar": "./jars/950626551_3_1783615503849.png",
-      "api": "csp_Kan360",
-      "searchable": 1,
-      "filterable": 1,
-      "ext": {
-        "filter": "https://open.wya6.com/d/down/2026/json/360.json",
-        "fishjx": [
-          "https://jx.xmflv.com/?url="
-        ]
-      }
-    },
-   {
-      "key": "Kan360",
-      "name": "三六｜秒播",
-      "type": 3,
-      "jar": "./jars/879949887_1_1784533310607.jar",
-      "api": "csp_Kan360",
-      "searchable": 1,
-      "filterable": 1,
-      "ext": {
-        "filter": "https://open.wya6.com/d/down/2026/json/360.json",
-        "fishjx": [
-          "https://jx.xmflv.com/?url="
-        ]
-      }
-    },
-    {
-      "key": "YunDuo",
-      "name": "云朵｜秒播",
-      "type": 3,
-      "jar": "./jars/879949887_1_1784533310607.jar",
-      "api": "csp_YunDuo",
-      "searchable": 1,
-      "changeable": 1,
-      "filterable": 1
-    },
     {
       "key": "CupFox",
-      "name": "茶杯｜秒播",
+      "name": "茶杯｜4K",
       "type": 3,
-     "jar": "./jars/879949887_1_1784533310607.jar",
+      "jar": "./jars/fish08022249.jar",
       "api": "csp_CupFox",
       "searchable": 1,
       "changeable": 1,
       "filterable": 1
     },
-    {
-      "key": "FengYe",
-      "name": "枫叶｜秒播",
-      "type": 3,
-     "jar": "./jars/879949887_1_1784533310607.jar",
-      "api": "csp_CupFox",
-      "searchable": 1,
-      "changeable": 1,
-      "filterable": 1,
-      "ext": "ASrqK2y8hBjF6nWBT4VA6nl6pMHBuUkTFU8G1oArN4pFIRBIK3Koep4Mpa+rHr3EEKPvWTsPKevEKAGNJkBG3jYkvcbsm4uMR4SEGFXEVUK5k5GC1r3GrXXjDgc1ezNOEnVyK6ZdKI+xk/a/S3HSnknsxpSteN1SyaZ76LlkHDg8oTcmvsm6VWIJmoLG+EXXFO47gkwl6Z2cGWF6122DYXd9rqv5d1nPkPmMRFOjZmeIQwGet75HMuUQH2SD6tMhrHwqOVYxsZhaEJyp6C5P7lQgMd2fNfTUjdB8IXkeVnT+wuAKOiT09go+UHAmjghG58OMf/v/2ou2/Ojv5RTxZkUiiLZ5tUfJMSW87nNKi1Ak4w3wJ2h0OBR83irMrQjD68TCU0pG+ecPOjclNg7OFlbYxsLd0PPUBDQOAxFhq9+IpEgRp04Fi5Eb9B2exKN8CXuEoyf6ISv5l7FkIamTpm0="
-    },
-    {
+     {
       "key": "PianKu8",
-      "name": "片库｜秒播",
+      "name": "片库┆4K",
       "type": 3,
-     "jar": "./jars/879949887_1_1784533310607.jar",
+  "jar": "./jars/fish08022249.jar",
       "api": "csp_PianKu8",
       "searchable": 1,
       "quickSearch": 1,
@@ -475,9 +467,9 @@
     },
     {
       "key": "BuBu",
-      "name": "布布｜秒播",
+      "name": "布布┆4K",
       "type": 3,
-      "jar": "./jars/879949887_1_1784533310607.jar",
+   "jar": "./jars/fish08022249.jar",
       "api": "csp_BuBu",
       "searchable": 1,
       "changeable": 1,
@@ -485,9 +477,9 @@
     },
     {
       "key": "huaisang",
-      "name": "怀桑｜秒播",
+      "name": "怀桑┆4K",
       "type": 3,
-     "jar": "./jars/879949887_1_1784533310607.jar",
+     "jar": "./jars/fish08022249.jar",
       "api": "csp_AppQi",
       "searchable": 1,
       "changeable": 1,
@@ -495,9 +487,9 @@
     },
     {
       "key": "景仪",
-      "name": "景仪｜秒播",
+      "name": "景仪┆4K",
       "type": 3,
-     "jar": "./jars/879949887_1_1784533310607.jar",
+      "jar": "./jars/fish08022249.jar",
       "api": "csp_App88",
       "searchable": 1,
       "filterable": 1,
@@ -505,36 +497,59 @@
     },
     {
       "key": "枫眠",
-      "name": "枫眠｜秒播",
+      "name": "枫眠┆4K",
       "type": 3,
-      "jar": "./jars/879949887_1_1784533310607.jar",
-      "api": "csp_App88",
-      "ext": "AdzbT8Ti+fGJ2PrJDEahdT7+zU3sFruyF0fAaUTWAUOCrbG/s0KhC5zQusyXAkmDYai/yhecQAtwKkDfTqbVCQT15T0FDK1GX9GLxT9V3XyFRDT0ATcwcFfw5joxSB+YLlez1nGpT2AW5KomI3yNv3ORTd4B3NqAcM34Cioc6+xwfj3HJ4JO6kQvv4solNApeP7CqF/Ecpt1BCgvvPzswMOr+kgVG/Iu8btrVQFO+pRpY7cfpc/Y59ZqaJlrCTDNLxgwuG20RZ9gVWsW+vd3A9lRgeTiJ39vJPoK46+9LnYGWU9dlDR1qRg4y5ILVQjEnT4el2cKSZexf7nrXHVfF3nOmHH/w/R/OSGllwUB7FCHDMc7eDY7haDYHWAQpEmcn4+BfbC4cipsdZ+nVieVVuuaWSF9s+0xYPWdSYLJMxApplTYkO+/h5z9atdURJUMGQ=="
+       "jar": "./jars/fish08022249.jar",
+      "api": "csp_AppGet",
+      "searchable": 1,
+      "changeable": 1,
+      "ext": "AcfD7zVpQ/BXUN8kr7QyOuy8EGynlmV43purvZ/Q6vh0G+/zxmYTnl1TVxs16PqtZNzVbGTHZCi39PA5ajhXxhTarRfFdlQ5D2hJnU6hdqXgWkaERmRX+jTzArHWSZuTHH52mvPd4s2puv4cJlgE8Amm+Vu7oXDj7LwAWAgPp6O2kJQGDdUCLyK7VXTBJJMPQQ=="
     },
     {
       "key": "悯善",
-      "name": "悯善｜秒播",
+      "name": "悯善┆4K",
       "type": 3,
-     "jar": "./jars/879949887_1_1784533310607.jar",
+        "jar": "./jars/fish08022249.jar",
       "api": "csp_App88",
       "ext": "AY/LmvuAAyhXffcGv5StyHm1MkGdY4inQLRC3KICnxUJBpq0d5dLhvE0+MW8XruH+M/Q/Ruqd6NayN9rihHGuotzXSTrDHgoZ2/dm2JlJ7GYOYfBorPhMPjuOhTNMg9w/J6oP4DXluvDpXNj9uOKq7g/Cx7vrKF6utOSaE1gUgDQwT251mOGTzGsd3ZrtEeepgI6hOdB2gJ4hHRumNhlbVtWDdpnVMYvhCIuH2HUqJFZWM5T+gEZTMLfeUEJt7ScfaQp90qNZID1YNo/tQOaFLGN12o4CkPtCNoYs+emjhVVqIjJzgfplCPIEyjRADqhur0c48FwCiJyp/XGZFmsMJaPKqvOkO+0H5YMKsR+EMmXCr6n0n1VnwGGpYl3maiq1SB78yDnh16291IjwXdERP1csTe41Vg3ppIixtk6q1etAikUle+6fjSFGvAvDYNr2Q=="
     },
     {
       "key": "长泽",
-      "name": "长泽｜秒播",
+      "name": "长泽┆4K",
       "type": 3,
-     "jar": "./jars/879949887_1_1784533310607.jar",
       "api": "csp_App88",
       "ext": "Aa+WBBIIxghmbVYkWqlC4wrZvlocl4rSZS9+QyJDF6RgWFfYSb+nEM6WkMHPVbQFva551Srt16FqFroyjNssEXemH+xC5pCMj/ewgFuLEIbY2mXCVJ1bJxWRJAggNgH1f3mjwrBxlZA0kGgfAd0os29Mdi3RNJilSo5VMkPpcQPMeF8/PTbZHNymotiTwtICNcA5Q0WXsqe/wJ3HoLU4gBYQs1lBmYdxtAuvsnte3SbumQEFlaQnygFscx6EGrwKMFZLVcmu9egAXxygsf5PmyzN/xvOr+b+HslccoKqDbHNU/C6yWFwaHBawww0ckXRtoJ8fFbV7Xv4NiRcEf6ePm/cd06xYiZmjRts11gE0r8f7D0vx/TgigmU3v8nrgNYDokUGl/jDdza3o7BXyQumCWRD45wYbmKJ1LKb0ybRvNt"
     },
     {
-      "key": "zhiqiu",
-      "name": "听风｜秒播",
+      "key": "清沅",
+      "name": "清沅┆4K",
+      "api": "csp_AppNox",
+      "jar": "./jars/fish08022249.jar",
       "type": 3,
-      "jar": "./jars/879949887_1_1784533310607.jar",
+      "ext": "ASjKEhQKe/DZHt0fbLID47aB3aYcWUG5aIPwrmTCgGinaSykux5CZpbz57zl1moRZGFkoEXqk7decpKNU6W/p/6OTfj3JWvZtr89yPZSxNyjJm1Il5upXQT68sXR/0WG392H71MN7Q8NC8xkSOuwAq7EfX2cuHMsiqFeCCugzAiINUiEqvboCFdXiI97C6kqqqiaQIS9d+R1r7krr5vQXWtky7XJNsiK5ACjppyTh68cbONYIcgLp5Kg5woh/wj9xmNT6mFGqF2D3j2RUaLoWYf+K1+ltBiuzZ7THWKwrnpBBig8XUAG3lXNXiFhPILyYWfr+1j/UoInhNITzJJ+SSRc88KmOk5kpch+idGzVMzHIq/bLpRRxE0iV8Qdtc2atKF9QUqPXJLrwv21Dl+nxgPEGOZ+71L+gABeQdvXO7xvyzUnd+rOidPJr1mBsfu9ySbcqHkhL5EIEQpGHwRhG/yN3Y5xj0BU+SdSxnDo+CwMC+g+WCts34c2u8h2tz7G5vuTw8QvDF23kF/BZeD2QaoCBAd3SDG9ObAichfuO1nDa938+Ul+iekNOEPtPFr6k5o+px/JJkE7MKYhekE/2JfmIkbkBHdnewJYckdM37/9EKsnAozbDyFKhfKR06Es52KtuAhGyh1B8uyfsj33qFpreAqGam8kjEHdYA0i832o0BtTU2gS3mf3NoijVH/XNmlJRuNXo9yYxdjuip4Eq4iqIgajM16MGAIJ0rumYhxJ5uJUFDlf55b9iS+DvJ8wotnBvfdINpAaeXPPlVc/1JDp1rIOw0qg2XIRAafLL7kzXnW8djs2dPSQU1+j9LIrfQ6u3k4lqUs9gRMW1JhwC/4iqimnwg0KsVValaplt+fxFHhwCCkS45uLf8BaY+UZtp5ZDffbi3Q0EDAK8F210Bzd5l8W8MokURUSj374Z7y2hAROBAAgZ8qWRrFOmBC+I+LUCm7sV4h7Mwdpe8sDAtxBhxOpBAYyV8eACQsDbnQsBvizlafy16ptRrArViG0uB1VSPqvi8gqcFD1zMl+uRo="
+    },
+    {
+      "key": "zhiqiu",
+      "name": "听风┆知秋",
+      "type": 3,
       "api": "csp_zhiqiu",
       "searchable": 1,
       "ext": "http://www.小不点.com/api//2026/zhiqiu.php"
+    },
+       {
+      "key": "Kan360",
+      "name": "三六┆影视",
+      "type": 3,
+       "jar": "./jars/fish08022249.jar",
+      "api": "csp_Kan360",
+      "searchable": 1,
+      "filterable": 1,
+      "ext": {
+        "filter": "https://open.wya6.com/d/down/2026/json/360.json",
+        "fishjx": [
+          "https://jx.xmflv.com/?url="
+        ]
+      }
     },
   {
       "key": "荐片_js",
