@@ -1,6 +1,16 @@
 {
  "sites": [
   {
+   "key": "py_sszzyy",
+   "name": "西瓜影视[py]",
+   "type": 3,
+   "api": "./py/sszzyy.py",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1,
+   "ext": {}
+  },
+  {
    "key": "py_fqdm",
    "name": "番茄动漫[py]",
    "type": 3,

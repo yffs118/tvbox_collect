@@ -28,13 +28,6 @@
    "api": "./js/金牌影院.js"
   },
   {
-   "key": "py_枫叶影院",
-   "name": "枫叶[js]",
-   "type": 3,
-   "api": "./py/枫叶影院.py",
-   "ext": "noproxy"
-  },
-  {
    "key": "聚合短剧",
    "name": "聚合短剧[js]",
    "type": 3,
@@ -51,6 +44,15 @@
    "type": 3,
    "api": "./py/红果短剧.py",
    "ext": "noproxy"
+  },
+  {
+   "key": "py_bubuzhuiju",
+   "name": "布布追剧[py]",
+   "type": 3,
+   "api": "./py/bubuzhuiju.py",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1
   },
   {
    "key": "py_dsystv",
@@ -112,6 +114,31 @@
    "ext": {}
   },
   {
+   "key": "py_qiyoudy",
+   "name": "奇优影视[py]",
+   "type": 3,
+   "api": "./py/qiyoudy.py",
+   "searchable": 1,
+   "quickSearch": 0,
+   "filterable": 1
+  },
+  {
+   "key": "py_蛋挞",
+   "name": "蛋挞影视[py]",
+   "type": 3,
+   "api": "./py/dantatv.py",
+   "searchable": 1,
+   "quickSearch": 0
+  },
+  {
+   "key": "py_yangguang",
+   "name": "阳光影视[py]",
+   "type": 3,
+   "api": "./py/yangguang.py",
+   "searchable": 0,
+   "quickSearch": 0
+  },
+  {
    "key": "1",
    "name": "--- 1 ---"
   },
@@ -144,27 +171,6 @@
    "ext": "./js/s/大白鲨.json"
   },
   {
-   "key": "奇优",
-   "name": "奇优影院",
-   "type": 3,
-   "api": "csp_XBPQ",
-   "ext": "./js/s/奇优.json"
-  },
-  {
-   "key": "面包",
-   "name": "面包影视",
-   "type": 3,
-   "api": "csp_XBPQ",
-   "ext": "./js/s/面包.json"
-  },
-  {
-   "key": "爱看",
-   "name": "爱看影视",
-   "type": 3,
-   "api": "csp_XBPQ",
-   "ext": "./js/s/爱看.json"
-  },
-  {
    "key": "2",
    "name": "--- 2 ---"
   },
@@ -181,13 +187,13 @@
   },
   {
    "key": "py_高清电影",
-   "name": "高清电影(T3)",
+   "name": "高清电影[py]",
    "type": 3,
    "api": "./py/高清电影.py"
   },
   {
    "key": "py_金牌影院",
-   "name": "金牌影院(T3)",
+   "name": "金牌影院[py]",
    "type": 3,
    "searchable": 1,
    "quickSearch": 1,
@@ -198,7 +204,7 @@
   },
   {
    "key": "py_奇优动漫",
-   "name": "奇优动漫(T3)",
+   "name": "奇优动漫[py]",
    "type": 3,
    "api": "./py/奇优动漫.py",
    "searchable": 1,
@@ -209,7 +215,7 @@
   },
   {
    "key": "py_粤漫动漫",
-   "name": "粤漫动漫(T3)",
+   "name": "粤漫动漫[py]",
    "type": 3,
    "api": "./py/粤漫.py",
    "searchable": 1,
@@ -220,7 +226,7 @@
   },
   {
    "key": "py_jieyingshi",
-   "name": "界影视(T3)",
+   "name": "界影视[py]",
    "type": 3,
    "api": "./py/py_jieyingshi.py",
    "searchable": 1,
@@ -230,7 +236,7 @@
   },
   {
    "key": "py_aigua",
-   "name": "爱瓜TV(T3)",
+   "name": "爱瓜TV[py]",
    "type": 3,
    "api": "./py/aigua.py",
    "searchable": 1,
@@ -241,7 +247,7 @@
   },
   {
    "key": "py_国外",
-   "name": "国外剧情(T3)",
+   "name": "国外剧情[py]",
    "type": 3,
    "api": "./py/py_guowaiju.py",
    "quickSearch": 1,
@@ -250,7 +256,7 @@
   },
   {
    "key": "py_偷乐",
-   "name": "偷乐短剧(T3)",
+   "name": "偷乐短剧[py]",
    "type": 3,
    "api": "./py/偷乐短剧.py",
    "searchable": 1,
@@ -261,7 +267,7 @@
   },
   {
    "key": "py_嗨皮",
-   "name": "嗨皮影视(T3)",
+   "name": "嗨皮影视[py]",
    "type": 3,
    "api": "./py/嗨皮影视.py",
    "quickSearch": 1,
@@ -270,7 +276,7 @@
   },
   {
    "key": "py_云端",
-   "name": "云端影视(T3)",
+   "name": "云端影视[py]",
    "type": 3,
    "api": "./py/云端影视.py",
    "quickSearch": 1,
@@ -279,7 +285,7 @@
   },
   {
    "key": "py_云速",
-   "name": "云速影视(T3)",
+   "name": "云速影视[py]",
    "type": 3,
    "api": "./py/云速影视.py",
    "quickSearch": 1,
@@ -288,7 +294,7 @@
   },
   {
    "key": "py_农牧",
-   "name": "农牧影视(T3)",
+   "name": "农牧影视[py]",
    "type": 3,
    "api": "./py/农民影视.py",
    "quickSearch": 1,
@@ -297,7 +303,7 @@
   },
   {
    "key": "py_文才",
-   "name": "文才影视(T3)",
+   "name": "文才影视[py]",
    "type": 3,
    "api": "./py/文才影视.py",
    "searchable": 1,
@@ -309,16 +315,12 @@
   },
   {
    "key": "py_4KAV",
-   "name": "4KAV(T3)",
+   "name": "4KAV[py]",
    "type": 3,
    "api": "./py/4KAV.py",
    "quickSearch": 1,
    "searchable": 1,
    "filterable": 1
-  },
-  {
-   "key": "3.1",
-   "name": "--- 3.1 ---"
   },
   {
    "key": "4",
@@ -456,7 +458,7 @@
    "name": "--- 5 ---"
   },
   {
-   "key": "360资源",
+   "key": "360",
    "name": "360 | 采集",
    "type": 1,
    "searchable": 1,
@@ -464,7 +466,7 @@
    "api": "https://360zy.com/api.php/provide/vod/"
   },
   {
-   "key": "豆瓣资源",
+   "key": "豆瓣",
    "name": "豆瓣 | 采集",
    "type": 1,
    "quickSearch": 1,
@@ -577,7 +579,7 @@
    "changeable": 1
   },
   {
-   "key": "艾旦影视",
+   "key": "艾旦",
    "name": "艾旦 | 采集",
    "type": 1,
    "ext": {
@@ -589,7 +591,7 @@
    "changeable": 1
   },
   {
-   "key": "四个圈影视",
+   "key": "四个圈",
    "name": "四圈 | 采集",
    "type": 1,
    "api": "https://pg.fenwe078.cf/api.php/provide/vod/",
@@ -603,7 +605,7 @@
   },
   {
    "key": "py_YYMP3",
-   "name": "YYMP3(T3)",
+   "name": "YYMP3[py]",
    "type": 3,
    "api": "./py/yymp3.py"
   },
