@@ -1,8 +1,6 @@
-var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -16,14 +14,6 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // src/index.config.js
@@ -32,165 +22,7 @@ __export(index_config_exports, {
   default: () => index_config_default
 });
 module.exports = __toCommonJS(index_config_exports);
-
-// src/util/network.js
-var import_os = __toESM(require("os"), 1);
-var isIPv4 = (item) => {
-  if (!item)
-    return false;
-  const family = typeof item.family === "string" ? item.family : String(item.family || "");
-  return family === "IPv4" || family === "4";
-};
-var isValidIPv4 = (ip) => {
-  const text = String(ip || "").trim();
-  if (!/^\d{1,3}(\.\d{1,3}){3}$/.test(text))
-    return false;
-  return text.split(".").every((part) => {
-    const value = Number(part);
-    return Number.isInteger(value) && value >= 0 && value <= 255;
-  });
-};
-var isPrivateIPv4 = (ip) => {
-  return /^192\.168\./.test(ip) || /^10\./.test(ip) || /^172\.(1[6-9]|2\d|3[0-1])\./.test(ip);
-};
-var isCgnatIPv4 = (ip) => /^100\.(6[4-9]|[7-9]\d|1[01]\d|12[0-7])\./.test(ip);
-var isReservedOrUnroutableIPv4 = (ip) => {
-  const text = String(ip || "").trim();
-  return /^0\./.test(text) || /^127\./.test(text) || /^169\.254\./.test(text) || /^192\.0\.0\./.test(text) || /^192\.0\.2\./.test(text) || /^198\.18\./.test(text) || /^198\.19\./.test(text) || /^198\.51\.100\./.test(text) || /^203\.0\.113\./.test(text) || /^22[4-9]\./.test(text) || /^23\d\./.test(text) || /^24\d\./.test(text) || /^25[0-5]\./.test(text);
-};
-var isLikelyCellularInterface = (name = "") => /(rmnet|ccmni|pdp|wwan|cell|mobile|clat|v4-rmnet)/i.test(String(name || ""));
-var isLikelyLanInterface = (name = "") => /(wlan|wi-?fi|eth|en\d|lan|bridge)/i.test(String(name || ""));
-var isLikelyVirtualOrTunnelInterface = (name = "") => /(virtual|veth|vethernet|vmware|vbox|hyper-v|docker|podman|br-|wsl|utun|tun|tap|tailscale|zerotier|wireguard|wg|clash|mihomo|loopback|pseudo)/i.test(String(name || ""));
-var calcCandidateScore = (candidate) => {
-  let score = 0;
-  if (/^192\.168\./.test(candidate.ip)) {
-    score += 300;
-  } else if (/^172\.(1[6-9]|2\d|3[0-1])\./.test(candidate.ip)) {
-    score += 260;
-  } else if (/^10\./.test(candidate.ip)) {
-    score += 220;
-  } else if (!isCgnatIPv4(candidate.ip)) {
-    score += 180;
-  }
-  if (isLikelyLanInterface(candidate.name))
-    score += 80;
-  if (isLikelyCellularInterface(candidate.name))
-    score -= 320;
-  if (isLikelyVirtualOrTunnelInterface(candidate.name))
-    score -= 260;
-  if (isCgnatIPv4(candidate.ip))
-    score -= 220;
-  return score;
-};
-var getIPAddress = function() {
-  const forcedIp = String(process.env.CATPAW_HOST_IP || process.env.HOST_IP || "").trim();
-  if (isValidIPv4(forcedIp))
-    return forcedIp;
-  const interfaces = import_os.default.networkInterfaces() || {};
-  const candidates = [];
-  Object.entries(interfaces).forEach(([name, items]) => {
-    if (!Array.isArray(items))
-      return;
-    items.forEach((item) => {
-      if (!isIPv4(item))
-        return;
-      if (item.internal)
-        return;
-      const ip = String(item.address || "").trim();
-      if (!ip || ip.startsWith("169.254."))
-        return;
-      if (isReservedOrUnroutableIPv4(ip))
-        return;
-      candidates.push({
-        ip,
-        name: String(name || "")
-      });
-    });
-  });
-  const ranked = candidates.map((candidate) => ({
-    ...candidate,
-    score: calcCandidateScore(candidate)
-  })).sort((a, b) => b.score - a.score);
-  const preferred = ranked.find((candidate) => {
-    const isCell = isLikelyCellularInterface(candidate.name);
-    const isVirtual = isLikelyVirtualOrTunnelInterface(candidate.name);
-    return !isCell && !isVirtual && !isCgnatIPv4(candidate.ip);
-  });
-  if (preferred)
-    return preferred.ip;
-  const fallbackPrivate = ranked.find((candidate) => isPrivateIPv4(candidate.ip) && !isLikelyCellularInterface(candidate.name) && !isLikelyVirtualOrTunnelInterface(candidate.name));
-  if (fallbackPrivate)
-    return fallbackPrivate.ip;
-  return "127.0.0.1";
-};
-
-// src/index.config.js
-var builtinDanmuAddress = `http://${getIPAddress()}:9321`;
 var index_config_default = {
-  ali: {
-    token: "",
-    prefix: "闃块噷"
-  },
-  quark: {
-    cookie: ""
-  },
-  uc: {
-    cookie: "cookie",
-    token: "token",
-    ut: "ut"
-  },
-  y115: {
-    cookie: ""
-  },
-  baidu: {
-    cookie: ""
-  },
-  muou: {
-    url: ""
-  },
-  wanou: {
-    url: ""
-  },
-  leijing: {
-    url: ""
-  },
-  tgsou: {
-    tgPic: false,
-    count: "",
-    url: "",
-    channelUsername: ""
-  },
-  pansou: {
-    url: "",
-    channels: "",
-    plugins: "",
-    cloudTypes: ""
-  },
-  tgchannel: {},
-  tgfilebot: {
-    url: "http://127.0.0.1:8080",
-    password: ""
-  },
-  sites: {
-    list: []
-  },
-  pans: {
-    list: []
-  },
-  danmu: {
-    urls: [
-      { address: builtinDanmuAddress, name: "鍐呯疆寮瑰箷", builtin: true }
-    ],
-    autoPush: true,
-    debug: false
-    // 寮瑰箷鍖归厤璋冭瘯淇℃伅寮€鍏�
-  },
-  t4: {
-    list: []
-  },
-  cms: {
-    list: []
-  },
   customSpiders: {
     enabled: true,
     dir: "",
@@ -201,31 +33,6 @@ var index_config_default = {
     factoryTimeoutMs: 1e4,
     urlTimeoutMs: 1e4
   },
-  live2vod: {
-    sources: [
-      { name: "YueChan", url: "https://raw.githubusercontent.com/YueChan/Live/refs/heads/main/GNTV.m3u", img: "" },
-      { name: "IPTV", url: "https://raw.githubusercontent.com/develop202/migu_video/refs/heads/main/interface.txt", img: "" },
-      { name: "IPTV虏", url: "http://82.156.243.185:33389/fwc.m3u", img: "" },
-      { name: "鑼冩槑鏄�", url: "https://cdn.jsdelivr.net/gh/fanmingming/live@refs/heads/main/tv/m3u/ipv6.m3u", img: "" },
-      { name: "鍝斿摡", url: "https://sub.ottiptv.cc/bililive.m3u", img: "" },
-      { name: "铏庣墮", url: "https://sub.ottiptv.cc/huyayqk.m3u", img: "" },
-      { name: "鏂楅奔", url: "https://sub.ottiptv.cc/douyuyqk.m3u", img: "" },
-      { name: "YY", url: "https://sub.ottiptv.cc/yylunbo.m3u", img: "" }
-    ],
-    showMode: "groups",
-    // groups: 鎸夌粍鍒嗙被鏄剧ず, all: 鍗曠嚎璺睍绀�
-    def_pic: "https://ghproxy.net/https://raw.githubusercontent.com/hjdhnx/hipy-server/master/app/static/img/lives.jpg"
-  },
-  alist: [
-    {
-      name: "馃悏绁炴棌涔濆笣",
-      server: "https://alist.shenzjd.com"
-    },
-    {
-      name: "馃挗repl",
-      server: "https://ali.liucn.repl.co"
-    }
-  ],
   color: [
     {
       light: {

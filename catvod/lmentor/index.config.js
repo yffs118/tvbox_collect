@@ -126,7 +126,17 @@ var index_config_default = {
     ],
     format: "xml",
     autoPush: true,
-    autoPushBlacklist: ["bili_all", "bili_official", "88kanqiu", "live"]
+    autoPushBlacklist: ["bili_all", "bili_official", "88kanqiu", "live"],
+    sourceStrategy: {
+      mode: "builtin_first",
+      publicDelayMs: 500,
+      builtinGraceMs: 900,
+      builtinSearchTimeoutMs: 6e3,
+      publicSearchTimeoutMs: 8e3,
+      builtinContentTimeoutMs: 6e3,
+      publicContentTimeoutMs: 1e4,
+      maxAttempts: 3
+    }
   },
   t4: {
     list: []
@@ -135,7 +145,7 @@ var index_config_default = {
     list: []
   },
   pansou: {
-    api_urls: "https://so.hk.111651.xyz",
+    api_urls: "https://so.111651.xyz",
     channels: "",
     plugins: "",
     cloud_types: "",
